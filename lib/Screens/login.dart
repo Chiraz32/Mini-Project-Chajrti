@@ -14,10 +14,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [    Text("login",style: TextStyle(fontSize: 18))
-      ],),
+      body:Container(
+        child: const Center(
+          child: Text("Login Page"),
+        ),
+      ),
       bottomNavigationBar: BottomBar(isClient: true,),
     );
   }
