@@ -15,9 +15,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool isClient = false;
+  bool isSeller = false;
   bool _obscureText = true;
-  
+
+  TextEditingController _email = new TextEditingController();
+  TextEditingController _password = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     String defaultFontFamily = 'Roboto-Light.ttf';
@@ -56,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 5,
                   ),
                   TextField(
+                    controller: _email,
                     showCursor: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -73,9 +77,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       fillColor: lighterGreen,
                       hintStyle: TextStyle(
-                          color: mainGreen,
-                          fontFamily: defaultFontFamily,
-                          fontSize: 16,
+                        color: mainGreen,
+                        fontFamily: defaultFontFamily,
+                        fontSize: 16,
                       ),
                       hintText: "Email",
                     ),
@@ -90,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                   TextField(
+                    controller: _password,
                     obscureText: _obscureText,
                     enableSuggestions: false,
                     autocorrect: false,
@@ -108,21 +113,22 @@ class _LoginPageState extends State<LoginPage> {
                         color: mainGreen,
                         size: defaultIconSize,
                       ),
-                      suffixIcon:IconButton(
-                          icon : Icon(
-                            _obscureText ? Icons.remove_red_eye : Icons.remove_red_eye_outlined,
-                            color: mainGreen,
-                            size: defaultIconSize,
-                          ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.remove_red_eye
+                              : Icons.remove_red_eye_outlined,
                           color: mainGreen,
-                          iconSize: defaultIconSize,
-                          onPressed: () {
-                            setState(() {
-                              _obscureText = !_obscureText;
-                            });
-                          },
+                          size: defaultIconSize,
+                        ),
+                        color: mainGreen,
+                        iconSize: defaultIconSize,
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
                       ),
-                      
                       fillColor: lighterGreen,
                       hintStyle: TextStyle(
                         color: mainGreen,
@@ -148,10 +154,10 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: isClient,
+                            value: isSeller,
                             onChanged: (bool? value) {
                               setState(() {
-                                isClient = value!;
+                                isSeller = value!;
                               });
                             },
                             activeColor: mainGreen,
@@ -189,7 +195,49 @@ class _LoginPageState extends State<LoginPage> {
                         backgroundColor:
                             MaterialStateProperty.all<Color>(mainGreen),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        //print in output console the email and password
+                        print(_email.text);
+                        print(_password.text);
+                        if (_email.text == "" || _password.text == "") {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Erreur",
+                                    style: TextStyle(
+                                        color: mainGreen,
+                                        fontFamily: defaultFontFamily,
+                                        fontSize: 20)),
+                                content:
+                                    Text("Veuillez remplir tous les champs"),
+                                actions: [
+                                  TextButton(
+                                    child: Text("OK",
+                                        style: TextStyle(
+                                            color: mainGreen,
+                                            fontFamily: defaultFontFamily,
+                                            fontSize: 16)),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        } else {
+                          if (isSeller) {
+                            setState(() {
+                              Navigator.pushNamed(context, '/ProductList_Seller');
+                            });
+                          } else {
+                            setState(() {
+                              Navigator.pushNamed(context, '/ProductList_Client');
+                            });
+                          }
+                        }
+                      },
                       child: Text(
                         "Se Connecter",
                         style: TextStyle(
