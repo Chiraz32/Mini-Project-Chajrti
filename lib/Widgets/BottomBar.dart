@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class BottomBar extends StatefulWidget {
-  late bool isClient;
+   bool? isClient;
   BottomBar({super.key, required bool isClient});
 
   @override
@@ -15,6 +15,9 @@ class _BottomBarState extends State<BottomBar> {
   bool homeClicked = false;
   bool profileClicked = false;
   bool ordersListClicked = false;
+
+
+ 
   @override
   Widget build(BuildContext context) {
     return Container(

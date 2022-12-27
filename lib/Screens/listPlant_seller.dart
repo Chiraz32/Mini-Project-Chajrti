@@ -24,7 +24,11 @@ class _PlantList_SellerState extends State<PlantList_Seller> {
           Padding(padding: EdgeInsets.only(right: 20)
           ,
           child:IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                Navigator.pushNamed(context, '/AddPlant_Seller');
+              });
+            },
             icon: const Icon(Icons.add_circle_outline, color: Colors.black,size:30),
           ) ,)
           
