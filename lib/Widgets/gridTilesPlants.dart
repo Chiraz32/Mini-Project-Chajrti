@@ -74,7 +74,7 @@ class GridTilesPlants extends StatelessWidget {
                   Container(
                     alignment: Alignment.bottomCenter,
                     padding: EdgeInsets.only( top: 10),
-                    child: Text( "$price dt",
+                    child: Text( "$price DT",
                         style: TextStyle(
                             color: mainGreen,
                             fontFamily: 'Roboto-Light.ttf',
