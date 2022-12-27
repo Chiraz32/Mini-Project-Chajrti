@@ -42,12 +42,15 @@ class _FavouriteListState extends State<FavouriteList> {
           crossAxisSpacing: (plants.length) / 2,
           mainAxisSpacing: (plants.length) / 2,
           shrinkWrap: true,
-          children: List<Widget>.generate(plants.length-1, (index) {
+          childAspectRatio: (185 / 225),          
+          padding: EdgeInsets.all(10),
+          children: List<Widget>.generate(plants.length, (index) {
             return GridTile(
                 child: GridTilesPlants(
               name: plants[index].name,
               image: plants[index].image,
               price: plants[index].price.toString(),
+              index: index,
             ));
           }),
         ),

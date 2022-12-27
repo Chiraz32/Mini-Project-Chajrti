@@ -41,12 +41,15 @@ class _PlantList_SellerState extends State<PlantList_Seller> {
           crossAxisSpacing: (plants.length) / 2,
           mainAxisSpacing: (plants.length) / 2,
           shrinkWrap: true,
+          childAspectRatio: (185 / 225),          
+          padding: EdgeInsets.all(10),
           children: List<Widget>.generate(plants.length, (index) {
             return GridTile(
                 child: GridTilesPlants(
               name: plants[index].name,
               image: plants[index].image,
               price: plants[index].price.toString(),
+              index: index,
             ));
           }),
         ),

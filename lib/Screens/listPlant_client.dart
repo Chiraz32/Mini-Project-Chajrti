@@ -28,7 +28,11 @@ class _PlantsList_ClientState extends State<PlantsList_Client> {
             Padding(
               padding: EdgeInsets.only(right: 20),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    Navigator.pushNamed(context, '/FavouriteList_Client');
+                  }); 
+                },
                 icon: const Icon(Icons.favorite_outline,
                     color: Colors.black, size: 30),
               ),
@@ -41,12 +45,15 @@ class _PlantsList_ClientState extends State<PlantsList_Client> {
           crossAxisSpacing: (plants.length) / 2,
           mainAxisSpacing: (plants.length) / 2,
           shrinkWrap: true,
+          childAspectRatio: (185 / 225),          
+          padding: EdgeInsets.all(10),
           children: List<Widget>.generate(plants.length, (index) {
             return GridTile(
                 child: GridTilesPlants(
               name: plants[index].name,
               image: plants[index].image,
               price: plants[index].price.toString(),
+              index: index,
             ));
           }),
         ),

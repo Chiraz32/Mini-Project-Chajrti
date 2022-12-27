@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
      debugShowCheckedModeBanner: false,
-        initialRoute: '/PlantDetail_Client',
+        initialRoute: '/ProductList_Client',
         routes: {
           '/Login': (context) => const LoginPage(),
            '/ProductList_Client': (context) => const PlantsList_Client(),
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             '/OrdersList_Seller': (context) => const OrdersList_Seller(),
             '/AddPlant_Seller': (context) => const AddPlant_Seller(),
             '/FavouriteList_Client':(context) => const FavouriteList(),
-            '/PlantDetail_Client':(context) => const PlantDetail()
+            '/PlantDetail_Client':(context) =>  PlantDetail(index: 2)
       },
         title: 'Chajrti'
     );
