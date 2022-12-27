@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
+import 'dart:ui';
+
 import 'package:chajrti/Constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -13,16 +15,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool isClient = false;
+  bool _obscureText = true;
+  
   @override
   Widget build(BuildContext context) {
     String defaultFontFamily = 'Roboto-Light.ttf';
     double defaultFontSize = 14;
     double defaultIconSize = 17;
+
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 35, bottom: 30),
-        width: double.infinity,
-        height: double.infinity,
+        padding: EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 20),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         color: Colors.white70,
         child: Column(
           children: <Widget>[
@@ -37,14 +43,23 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.center,
                     child: Image.asset("assets/connexionImage.png"),
                   ),
+                  Text(
+                    "Connexion",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: defaultFontFamily,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 30,
+                    ),
+                  ),
                   SizedBox(
-                    height: 30,
+                    height: 5,
                   ),
                   TextField(
                     showCursor: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderRadius: BorderRadius.all(Radius.circular(30.0)),
                         borderSide: BorderSide(
                           width: 0,
                           style: BorderStyle.none,
@@ -60,18 +75,28 @@ class _LoginPageState extends State<LoginPage> {
                       hintStyle: TextStyle(
                           color: mainGreen,
                           fontFamily: defaultFontFamily,
-                          fontSize: defaultFontSize),
+                          fontSize: 16,
+                      ),
                       hintText: "Email",
+                    ),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: defaultFontFamily,
+                      fontSize: 16,
+                      height: 1,
                     ),
                   ),
                   SizedBox(
-                    height: 15,
+                    height: 20,
                   ),
                   TextField(
+                    obscureText: _obscureText,
+                    enableSuggestions: false,
+                    autocorrect: false,
                     showCursor: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderRadius: BorderRadius.all(Radius.circular(30.0)),
                         borderSide: BorderSide(
                           width: 0,
                           style: BorderStyle.none,
@@ -83,18 +108,34 @@ class _LoginPageState extends State<LoginPage> {
                         color: mainGreen,
                         size: defaultIconSize,
                       ),
-                      suffixIcon: Icon(
-                        Icons.remove_red_eye,
-                        color: mainGreen,
-                        size: defaultIconSize,
+                      suffixIcon:IconButton(
+                          icon : Icon(
+                            _obscureText ? Icons.remove_red_eye : Icons.remove_red_eye_outlined,
+                            color: mainGreen,
+                            size: defaultIconSize,
+                          ),
+                          color: mainGreen,
+                          iconSize: defaultIconSize,
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
                       ),
+                      
                       fillColor: lighterGreen,
                       hintStyle: TextStyle(
                         color: mainGreen,
                         fontFamily: defaultFontFamily,
-                        fontSize: defaultFontSize,
+                        fontSize: 16,
                       ),
-                      hintText: "Password",
+                      hintText: "Mot de passe",
+                    ),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: defaultFontFamily,
+                      fontSize: 16,
+                      height: 1,
                     ),
                   ),
                   SizedBox(
@@ -107,8 +148,12 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
-                            onChanged: (value) {},
+                            value: isClient,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                isClient = value!;
+                              });
+                            },
                             activeColor: mainGreen,
                           ),
                           Text(
@@ -125,10 +170,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
 
                   SizedBox(
-                    height: 15,
+                    height: 30,
                   ),
                   Container(
-                    width: double.infinity,
+                    width: MediaQuery.of(context).size.width * 0.6,
                     child: ElevatedButton(
                       //add padding to the button
                       style: ButtonStyle(
@@ -137,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
+                            borderRadius: BorderRadius.circular(30.0),
                             side: BorderSide(color: mainGreen),
                           ),
                         ),
@@ -146,7 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       onPressed: () {},
                       child: Text(
-                        "Connexion",
+                        "Se Connecter",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
