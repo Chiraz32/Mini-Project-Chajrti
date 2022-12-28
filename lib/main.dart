@@ -1,4 +1,6 @@
 
+import 'package:chajrti/Constants/constants.dart';
+import 'package:chajrti/Providers/order_provider.dart';
 import 'package:chajrti/Screens/addPlant_seller.dart';
 import 'package:chajrti/Screens/editProfil.dart';
 import 'package:chajrti/Screens/listPlant_client.dart';
@@ -7,17 +9,21 @@ import 'package:chajrti/Screens/login.dart';
 import 'package:chajrti/Screens/ordersList_client.dart';
 import 'package:chajrti/Screens/ordersList_seller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider<OrderProvider>(
+create: (_)=> OrderProvider()
+, child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    debugPrint(" orders length is ${orders.length}");
     return MaterialApp(
      debugShowCheckedModeBanner: false,
-        initialRoute: '/ProductList_Seller',
+        initialRoute: '/OrdersList_Seller',
         routes: {
           '/Login': (context) => const LoginPage(),
            '/ProductList_Client': (context) => const PlantsList_Client(),

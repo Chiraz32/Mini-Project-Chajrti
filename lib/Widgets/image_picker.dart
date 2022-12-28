@@ -24,12 +24,12 @@ class _Image_PickerState extends State<Image_Picker> {
         TextButton(
             onPressed: () {
               _getFromGallery();
+              
             },
             child: 
             Padding (padding:EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.1)
             ,child: Column(children: <Widget>[
-              Text("Importer une image",
-                  style: TextStyle(color: Colors.grey.shade600,fontSize:18 )),
+                  displayImage(),
                   Padding(padding: EdgeInsets.only(top: 10),
                   child:  Icon(Icons.download, color: Colors.grey.shade600,size:35))
              
@@ -50,6 +50,11 @@ class _Image_PickerState extends State<Image_Picker> {
     }
   }
 
-  /// Get from Camera
-
-}
+ Widget displayImage(){
+    if(imageFile == null){
+      return Text("Importer une image",style: TextStyle(color: Colors.grey.shade600,fontSize:18 ));
+    } else{
+      return Image.file(imageFile!, width: 350, height: 350);
+    }
+  }
+  }
