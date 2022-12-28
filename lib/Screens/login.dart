@@ -1,11 +1,8 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_final_fields, unnecessary_new
 
-import 'dart:ui';
-
+import 'package:email_validator/email_validator.dart';
 import 'package:chajrti/Constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,8 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     String defaultFontFamily = 'Roboto-Light.ttf';
-    double defaultFontSize = 14;
-    double defaultIconSize = 17;
+    double defaultIconSize = 20;
 
     return Scaffold(
       body: Container(
@@ -33,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Colors.white70,
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Flexible(
               flex: 5,
@@ -196,9 +192,6 @@ class _LoginPageState extends State<LoginPage> {
                             MaterialStateProperty.all<Color>(mainGreen),
                       ),
                       onPressed: () {
-                        //print in output console the email and password
-                        print(_email.text);
-                        print(_password.text);
                         if (_email.text == "" || _password.text == "") {
                           showDialog(
                             context: context,
@@ -226,14 +219,42 @@ class _LoginPageState extends State<LoginPage> {
                               );
                             },
                           );
+                        } else if (!EmailValidator.validate(_email.text)) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Erreur",
+                                    style: TextStyle(
+                                        color: mainGreen,
+                                        fontFamily: defaultFontFamily,
+                                        fontSize: 20)),
+                                content: Text("Email non valid"),
+                                actions: [
+                                  TextButton(
+                                    child: Text("OK",
+                                        style: TextStyle(
+                                            color: mainGreen,
+                                            fontFamily: defaultFontFamily,
+                                            fontSize: 16)),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         } else {
                           if (isSeller) {
                             setState(() {
-                              Navigator.pushNamed(context, '/ProductList_Seller');
+                              Navigator.pushNamed(
+                                  context, '/ProductList_Seller');
                             });
                           } else {
                             setState(() {
-                              Navigator.pushNamed(context, '/ProductList_Client');
+                              Navigator.pushNamed(
+                                  context, '/ProductList_Client');
                             });
                           }
                         }

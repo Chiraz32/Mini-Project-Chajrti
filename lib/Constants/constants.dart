@@ -6,6 +6,7 @@ Color mediumGreen = Color(0xff80B89E);
 Color lightGreen = Color(0xffC0DCCF);
 Color lighterGreen = Color(0xffF2F4F3);
 Color grey = Color(0xffEFEFEF);
+Color darkGrey = Color.fromARGB(255, 111, 111, 111);
 
 List<Plant> plants = [
   Plant(
