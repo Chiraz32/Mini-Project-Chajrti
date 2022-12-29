@@ -24,7 +24,7 @@ class _EditProfileState extends State<EditProfile> {
       appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          leading: BackButton(color: darkGrey)),
+          leading: BackButton(color: Colors.black)),
       body: Container(
         padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
         width: MediaQuery.of(context).size.width,

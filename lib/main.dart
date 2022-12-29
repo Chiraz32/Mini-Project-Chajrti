@@ -17,15 +17,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
      debugShowCheckedModeBanner: false,
-        initialRoute: '/Login',
+        initialRoute: '/OrdersList_Client',
         routes: {
           '/Login': (context) => const LoginPage(),
-           '/ProductList_Client': (context) => const PlantsList_Client(),
-            '/OrdersList_Client': (context) => const OrdersList_Client(),
-             '/ProfileEdit': (context) => const EditProfile(),
-             '/ProductList_Seller': (context) => const PlantList_Seller(),
-            '/OrdersList_Seller': (context) => const OrdersList_Seller(),
-            '/AddPlant_Seller': (context) => const AddPlant_Seller(),
+          '/ProductList_Client': (context) => const PlantList_Client(),
+          '/OrdersList_Client': (context) => const OrdersList_Client(),
+          '/ProfileEdit': (context) => const EditProfile(),
+          '/ProductList_Seller': (context) => const PlantList_Seller(),
+          '/OrdersList_Seller': (context) => const OrdersList_Seller(),
+          '/AddPlant_Seller': (context) => const AddPlant_Seller(),
       },
         title: 'Chajrti'
     );

@@ -18,7 +18,8 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        padding: const EdgeInsets.only(right:15, bottom: 10),
         height: 60,
         decoration: BoxDecoration(
           color: mainGreen,
