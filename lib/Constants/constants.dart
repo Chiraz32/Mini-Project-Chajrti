@@ -2,11 +2,11 @@ import 'package:chajrti/Models/Plant.dart';
 import 'package:chajrti/Models/order.dart';
 import 'package:flutter/material.dart';
 
-Color mainGreen = Color(0xff00703C);
-Color mediumGreen = Color(0xff80B89E);
-Color lightGreen = Color(0xffC0DCCF);
-Color lighterGreen = Color(0xffF2F4F3);
-Color grey = Color(0xffEFEFEF);
+const Color mainGreen = Color(0xff00703C);
+const Color mediumGreen = Color(0xff80B89E);
+const Color lightGreen = Color(0xffC0DCCF);
+const Color lighterGreen = Color(0xffF2F4F3);
+const Color grey = Color(0xffEFEFEF);
 
 List<Plant> plants = [
   Plant(

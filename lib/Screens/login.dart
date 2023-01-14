@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: ElevatedButton(
                       //add padding to the button
