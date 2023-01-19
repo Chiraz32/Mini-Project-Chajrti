@@ -1,53 +1,83 @@
 import 'package:chajrti/Constants/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../Screens/plantDetail.dart';
+
 class GridTilesPlants extends StatelessWidget {
   late String name;
   late String image;
   late String price;
- 
-  GridTilesPlants({
-    super.key,
-    required this.name,
-    required this.image,
-    required this.price,
-  }) ;
+  late int index;
+
+  GridTilesPlants(
+      {super.key,
+      required this.name,
+      required this.image,
+      required this.price,
+      required this.index});
 
   @override
   Widget build(BuildContext context) {
     dynamic size = MediaQuery.of(context).size;
-     double height = size.height;
+    double height = size.height;
     double width = size.width;
     return InkWell(
-      onTap: () {
-        /* if (fromSubProducts) {
+        onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ProductsScreen(
-                      slug: "products/?page=1&limit=12&category=" + slug,
-                      name: name,
+                builder: (context) => PlantDetail(
+                      index: index,
                     )),
           );
-        } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => SubCategoryScreen(
-                      slug: slug,
-                    )),
-          );
-        }*/
+        }
         //plantDetail
-        Navigator.pushNamed(context, '/');
-      },
-      child: Container(
-        padding: EdgeInsets.only(top: 5),
-        child: Card(
-            color: lighterGreen ,
+        ,
+        child: Container(
+            height: 200,
+            child: Padding(
+              padding: EdgeInsets.all(5),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 180,
+                      child: Image.asset(
+                        image,
+                        height: 150,
+                      ),
+                      width: 200,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 242, 244, 243),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    Flexible(
+                        child: Container(
+                      child: Text(
+                          (name.length <= 40 ? name : name.substring(0, 40)),
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Roboto-Light.ttf',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700)),
+                    )),
+                    Container(
+                      child: Text("$price DT",
+                          style: TextStyle(
+                              color: mainGreen,
+                              fontFamily: 'Roboto-Light.ttf',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400)),
+                    )
+                  ]),
+            ))
+        /*Card(
+            color: lighterGreen,
             shape: RoundedRectangleBorder(
               borderRadius: const BorderRadius.all(
-                Radius.circular(8.0),
+                Radius.circular(10.0),
               ),
             ),
             elevation: 0,
@@ -61,7 +91,7 @@ class GridTilesPlants extends StatelessWidget {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.only(left: 20, right: 20, top:15),
+                    padding: EdgeInsets.only(left: 20, right: 20, top: 15),
                     child: Text(
                         (name.length <= 40 ? name : name.substring(0, 40)),
                         textAlign: TextAlign.center,
@@ -73,8 +103,8 @@ class GridTilesPlants extends StatelessWidget {
                   ),
                   Container(
                     alignment: Alignment.bottomCenter,
-                    padding: EdgeInsets.only( top: 10),
-                    child: Text( "$price dt",
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text("$price DT",
                         style: TextStyle(
                             color: mainGreen,
                             fontFamily: 'Roboto-Light.ttf',
@@ -83,8 +113,8 @@ class GridTilesPlants extends StatelessWidget {
                   )
                 ],
               ),
-            )),
-      ),
-    );
+            )),*/
+
+        );
   }
 }
