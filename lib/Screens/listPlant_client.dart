@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class PlantsList_Client extends StatefulWidget {
-  const PlantsList_Client({super.key});
+class PlantList_Client extends StatefulWidget {
+  const PlantList_Client({super.key});
 
   @override
-  State<PlantsList_Client> createState() => _PlantsList_ClientState();
+  State<PlantList_Client> createState() => _PlantsList_ClientState();
 }
 
-class _PlantsList_ClientState extends State<PlantsList_Client> {
+class _PlantsList_ClientState extends State<PlantList_Client> {
   @override
   Widget build(BuildContext context) {
    return Scaffold(

@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class BottomBar extends StatefulWidget {
-   bool? isClient;
+  bool? isClient;
   BottomBar({super.key, required bool isClient});
 
   @override
@@ -16,13 +16,12 @@ class _BottomBarState extends State<BottomBar> {
   bool profileClicked = false;
   bool ordersListClicked = false;
 
-
- 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
-        margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        alignment: Alignment.center,
+        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        padding: const EdgeInsets.only(right: 15, bottom: 10),
         height: 60,
         decoration: BoxDecoration(
           color: mainGreen,
