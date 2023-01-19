@@ -21,6 +21,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
         margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         height: 60,
         decoration: BoxDecoration(
