@@ -396,7 +396,7 @@ class _EditProfileState extends State<EditProfile> {
                                     Text("Vouller vous vraiment vous déconnecter ?"),
                                 actions: [
                                   TextButton(
-                                    child: Text("OK",
+                                    child: Text("Oui",
                                         style: TextStyle(
                                             color: mainGreen,
                                             fontFamily: defaultFontFamily,
