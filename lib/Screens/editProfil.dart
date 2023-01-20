@@ -389,7 +389,7 @@ class _EditProfileState extends State<EditProfile> {
                               return AlertDialog(
                                 title: Text("Deconnexion",
                                     style: TextStyle(
-                                        color: mainGreen,
+                                        color: Colors.red.shade700,
                                         fontFamily: defaultFontFamily,
                                         fontSize: 20)),
                                 content:
@@ -398,9 +398,9 @@ class _EditProfileState extends State<EditProfile> {
                                   TextButton(
                                     child: Text("Oui",
                                         style: TextStyle(
-                                            color: mainGreen,
+                                            color: Colors.red.shade700,
                                             fontFamily: defaultFontFamily,
-                                            fontSize: 16)),
+                                            fontSize: 20)),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
