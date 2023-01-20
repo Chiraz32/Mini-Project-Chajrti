@@ -45,7 +45,7 @@ class _OrdersList_ClientState extends State<OrdersList_Client> {
         )
         ,
         bottomNavigationBar: BottomBar(
-          isClient: false,
+          isClient: true,
         )
     );
   }

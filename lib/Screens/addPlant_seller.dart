@@ -31,8 +31,6 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
                 width: MediaQuery.of(context).size.width,
                 child: Image_Picker()),
                 
-
-              
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
               child: TextField(
