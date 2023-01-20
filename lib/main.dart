@@ -1,5 +1,4 @@
 
-import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Providers/order_provider.dart';
 import 'package:chajrti/Screens/addPlant_seller.dart';
 import 'package:chajrti/Screens/editProfil.dart';
