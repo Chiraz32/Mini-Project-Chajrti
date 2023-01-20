@@ -26,9 +26,8 @@ class MyApp extends StatelessWidget {
     
     return MaterialApp(
      debugShowCheckedModeBanner: false,
+        initialRoute: '/ProductList_Client',
 
-
-        initialRoute: '/Login',
         routes: {
           '/Login': (context) => const LoginPage(),
           '/ProductList_Client': (context) => const PlantList_Client(),
