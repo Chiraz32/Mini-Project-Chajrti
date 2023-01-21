@@ -49,24 +49,23 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(
                       height: 10,
                     ),
-                    Container( 
-                      child: Stack(
-                        alignment: Alignment.bottomRight,
-                        children: <Widget>[
-                          Expanded(
+                    Container(
+                        child: Stack(
+                      alignment: Alignment.bottomRight,
+                      children: <Widget>[
+                        Expanded(
                             child: Container(
-                              width: 200,
-                              height: 200,
-                              child : Image.asset('assets/blank-profile-circle.png'),
-                            )
-                          ),
-                          Expanded(
-                            child: IconButton(
+                          width: 200,
+                          height: 200,
+                          child: Image.asset('assets/blank-profile-circle.png'),
+                        )),
+                        Expanded(
+                          child: IconButton(
                             icon: Icon(
                               Icons.edit_note_rounded,
                               color: mainGreen,
                             ),
-                            iconSize: defaultIconSize*2.5,
+                            iconSize: defaultIconSize * 2.5,
                             onPressed: () {
                               showDialog(
                                 context: context,
@@ -80,36 +79,33 @@ class _EditProfileState extends State<EditProfile> {
                                     actions: [
                                       TextButton(
                                         child: Text("Importer",
-                                                style: TextStyle(
+                                            style: TextStyle(
                                                 color: mainGreen,
                                                 fontFamily: defaultFontFamily,
-                                                fontSize: 16)
-                                              ),
+                                                fontSize: 16)),
                                         onPressed: () {
                                           Navigator.of(context).pop();
                                         },
                                       ),
                                       TextButton(
-                                      child: Text("Annuler",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: defaultFontFamily,
-                                              fontSize: 16)),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
+                                        child: Text("Annuler",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontFamily: defaultFontFamily,
+                                                fontSize: 16)),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
                                     ],
                                   );
                                 },
                               );
                             },
                           ),
-                          )
-                          
-                       ],
-                      )
-                    ),
+                        )
+                      ],
+                    )),
                     SizedBox(
                       height: 30,
                     ),
@@ -289,7 +285,8 @@ class _EditProfileState extends State<EditProfile> {
                                 );
                               },
                             );
-                          } else if (_phone.text!=""&&_phone.text.length!=8) {
+                          } else if (_phone.text != "" &&
+                              _phone.text.length != 8) {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -299,7 +296,8 @@ class _EditProfileState extends State<EditProfile> {
                                           color: mainGreen,
                                           fontFamily: defaultFontFamily,
                                           fontSize: 20)),
-                                  content: Text("Numéro de téléphone non valid"),
+                                  content:
+                                      Text("Numéro de téléphone non valid"),
                                   actions: [
                                     TextButton(
                                       child: Text("OK",
@@ -320,8 +318,7 @@ class _EditProfileState extends State<EditProfile> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  content: Text(
-                                      "votre profile sera modifié"),
+                                  content: Text("votre profile sera modifié"),
                                   actions: [
                                     TextButton(
                                       child: Text("Enregistrer/Déconnexion",
@@ -331,7 +328,8 @@ class _EditProfileState extends State<EditProfile> {
                                               fontSize: 16)),
                                       onPressed: () {
                                         setState(() {
-                                          Navigator.pushNamed(context, '/Login');
+                                          Navigator.pushNamed(
+                                              context, '/Login');
                                         });
                                       },
                                     ),
@@ -367,60 +365,59 @@ class _EditProfileState extends State<EditProfile> {
                       height: 5,
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.all(17.0)),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                              side: BorderSide(color: Colors.red.shade700),
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.all(17.0)),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                side: BorderSide(color: Colors.red.shade700),
+                              ),
                             ),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.red.shade700),
                           ),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.red.shade700),
-                        ),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text("Deconnexion",
-                                    style: TextStyle(
-                                        color: Colors.red.shade700,
-                                        fontFamily: defaultFontFamily,
-                                        fontSize: 20)),
-                                content:
-                                    Text("Vouller vous vraiment vous déconnecter ?"),
-                                actions: [
-                                  TextButton(
-                                    child: Text("Oui",
-                                        style: TextStyle(
-                                            color: Colors.red.shade700,
-                                            fontFamily: defaultFontFamily,
-                                            fontSize: 20)),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        child: Text(
-                          "Déconnexion",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'Poppins-Medium.ttf',
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Deconnexion",
+                                      style: TextStyle(
+                                          color: Colors.red.shade700,
+                                          fontFamily: defaultFontFamily,
+                                          fontSize: 20)),
+                                  content: Text(
+                                      "Vouller vous vraiment vous déconnecter ?"),
+                                  actions: [
+                                    TextButton(
+                                      child: Text("Oui",
+                                          style: TextStyle(
+                                              color: Colors.red.shade700,
+                                              fontFamily: defaultFontFamily,
+                                              fontSize: 20)),
+                                      onPressed: () {
+                                        Navigator.pushNamed(context, '/Login');
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Text(
+                            "Déconnexion",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'Poppins-Medium.ttf',
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    ),
+                        )),
                     SizedBox(
                       height: 10,
                     ),

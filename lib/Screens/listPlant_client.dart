@@ -2,9 +2,6 @@ import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Widgets/gridTilesPlants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'dart:ui';
 
 class PlantList_Client extends StatefulWidget {
   const PlantList_Client({super.key});
@@ -46,7 +43,7 @@ class _PlantsList_ClientState extends State<PlantList_Client> {
           mainAxisSpacing: (plants.length) / 2,
           shrinkWrap: true,
           childAspectRatio: (185 / 225),          
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           children: List<Widget>.generate(plants.length, (index) {
             return GridTile(
                 child: GridTilesPlants(

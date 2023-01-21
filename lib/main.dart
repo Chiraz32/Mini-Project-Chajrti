@@ -1,5 +1,6 @@
 
 import 'package:chajrti/Providers/favoris_provider.dart';
+import 'package:chajrti/Providers/order_provider.dart';
 
 import 'package:chajrti/Screens/addPlant_seller.dart';
 import 'package:chajrti/Screens/editProfil.dart';
@@ -16,20 +17,25 @@ import 'package:provider/provider.dart';
 
 void main() {
 
-  runApp(ChangeNotifierProvider<FavoriteProvider>(
-    child: MyApp(),
-    create: (_) => FavoriteProvider(),
-  ));
+  runApp( MyApp(),);
 
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
-    return MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => OrderProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => FavoriteProvider(),
+        ),
+      ],
+      child:MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/ProductList_Client',
+        initialRoute: '/OrdersList_Client',
 
         routes: {
           '/Login': (context) => const LoginPage(),
@@ -44,6 +50,6 @@ class MyApp extends StatelessWidget {
           '/FavouriteList_Client': (context) => const FavouriteList(),
           '/PlantDetail_Client': (context) => PlantDetail(index: 2)
         },
-        title: 'Chajrti');
+        title: 'Chajrti'));
   }
 }
