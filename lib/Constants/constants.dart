@@ -36,9 +36,9 @@ List<Plant> plants = [
         ),
 ];
 List<Order> orders = [
-  Order(id: 1, state: "en attente", plant: plants[1], clientId: "client01 "),
-  Order(id: 2, state: "refusée", plant: plants[2], clientId: "client02 "),
-  Order(id: 3, state: "acceptée", plant: plants[0], clientId: "client03 "),
+  // Order(id: 1, state: "en attente",  clientId: "client01 ", plantId: plants[0],),
+  // Order(id: 2, state: "refusée",  clientId: "client02 ", plantId: plants[2],),
+  // Order(id: 3, state: "acceptée", plantId: plants[0], clientId: "client03 "),
 
      
  

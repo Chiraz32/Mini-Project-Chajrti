@@ -22,7 +22,7 @@ class _PlantDetailState extends State<PlantDetail> {
   Widget build(BuildContext context) {
     var plants = context.watch<FavoriteProvider>().myPlants;
     var favs = context.watch<FavoriteProvider>().myFav;
-
+    var newImage = plants[widget.index].image ?? "assets/defaultImage.jpg";
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
@@ -31,7 +31,7 @@ class _PlantDetailState extends State<PlantDetail> {
       body: ListView(children: [
         Center(
             child: Image.asset(
-          plants[widget.index].image,
+          newImage,
           height: 300,
         )),
         Row(
