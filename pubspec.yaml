@@ -40,7 +40,8 @@ dependencies:
   animated_bottom_navigation_bar: ^1.1.0
   image_picker: ^0.8.6
   provider: ^6.0.5
- 
+  http: ^0.13.5
+
 
 dev_dependencies:
   flutter_test:

@@ -36,10 +36,10 @@ class _OrdersList_ClientState extends State<OrdersList_Client> {
         body: ListView.builder(
           itemCount: ordersList.length,
           itemBuilder: ((context, ind) {
-            return OrderCardClient(image: ordersList[ind].plant.image,
+            return OrderCardClient(image: ordersList[ind].plant.image!,
              price: ordersList[ind].plant.price, 
              plant: ordersList[ind].plant.name,
-             state: ordersList[ind].state,
+             state: ordersList[ind].state.toString(),
              );
           }),
         )

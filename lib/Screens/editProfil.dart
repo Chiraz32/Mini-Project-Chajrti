@@ -338,10 +338,39 @@ class _EditProfileState extends State<EditProfile> {
                               },
                             );
                           } else {
-                            user.name = _name.text;
-                            user.email = _email.text;
-                            user.phone = int.parse(_phone.text);
-                            Navigator.of(context).pop();
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Text("votre profile sera modifié"),
+                                  actions: [
+                                    TextButton(
+                                      child: Text("Enregistrer/Déconnexion",
+                                          style: TextStyle(
+                                              color: mainGreen,
+                                              fontFamily: defaultFontFamily,
+                                              fontSize: 16)),
+                                      onPressed: () {
+                                        setState(() {
+                                          Navigator.pushNamed(
+                                              context, '/Login');
+                                        });
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text("Annuler",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontFamily: defaultFontFamily,
+                                              fontSize: 16)),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           }
                         },
 
