@@ -34,17 +34,17 @@ class GridTilesPlants extends StatelessWidget {
         //plantDetail
         ,
         child: Container(
-            height: 200,
+            height: 160,
             child: Padding(
               padding: EdgeInsets.all(5),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 180,
+                      height: 150,
                       child: Image.asset(
                         image,
-                        height: 150,
+                        height: 120,
                       ),
                       width: 200,
                       decoration: BoxDecoration(
