@@ -31,8 +31,6 @@ class _EditProfileState extends State<EditProfile> {
         password: '',
         salt: ''
     );
-
-
     
 
     String defaultFontFamily = 'Roboto-Light.ttf';
