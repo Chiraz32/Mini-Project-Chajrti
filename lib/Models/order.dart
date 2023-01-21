@@ -1,5 +1,12 @@
 
+
 import 'dart:convert';
+
+import 'dart:convert';
+import 'dart:html';
+
+import 'package:chajrti/Models/Plant.dart';
+
 import 'package:chajrti/enum/OrderStateEnum.dart';
 
 import 'Plant.dart';
@@ -13,27 +20,29 @@ String orderToJson(List<Order> data) =>
 class Order {
   late int id;
   late OrderStateEnum state;
-  late int clientId;
-  late Plant plantId;
+  late Client client;
+  late Plant plant;
+
 
   Order(
       {required this.id,
       required this.state,
-      required this.clientId,
-      required this.plantId, required });
+      required this.client,
+      required this.plant});
+
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
       id: json["id"],
       state: json["name"],
-      clientId: json["image"],
-      plantId: json["description"],
+      client: json["image"],
+      plant: json["description"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": state,
-        "image": clientId,
-        "description": plantId,
+        "image": client,
+        "description": plant,
       };
 }
 
