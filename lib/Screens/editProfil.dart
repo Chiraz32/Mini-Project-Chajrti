@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields
 
+
 import 'package:chajrti/Constants/constants.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+
+import '../Models/Client.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -18,6 +21,20 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    
+    var user = Client(
+        id: 1,
+        name: "Idris",
+        email: "test@test.t",
+        image: "idrisphoto.jpg",
+        role: 'Seller',
+        password: '',
+        salt: ''
+    );
+
+
+    
+
     String defaultFontFamily = 'Roboto-Light.ttf';
     double defaultIconSize = 20;
     return Scaffold(
@@ -57,7 +74,14 @@ class _EditProfileState extends State<EditProfile> {
                             child: Container(
                               width: 200,
                               height: 200,
-                              child : Image.asset('assets/blank-profile-circle.png'),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage("assets/${user.image}"),
+                                ),
+                              ),
+                              // child : Image.asset("assets/${user.image}"),
                             )
                           ),
                           Expanded(
@@ -114,7 +138,8 @@ class _EditProfileState extends State<EditProfile> {
                       height: 30,
                     ),
                     TextField(
-                      controller: _name,
+                      controller: _name = TextEditingController(text: user.name),
+                      onChanged: ((x) => {_name.text = x}),
                       showCursor: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -149,7 +174,8 @@ class _EditProfileState extends State<EditProfile> {
                       height: 20,
                     ),
                     TextField(
-                      controller: _email,
+                      controller: _email = TextEditingController(text: user.email),
+                      onChanged: ((x) => {_email.text = x}),
                       showCursor: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -184,7 +210,8 @@ class _EditProfileState extends State<EditProfile> {
                       height: 20,
                     ),
                     TextField(
-                      controller: _phone,
+                      controller: _phone = TextEditingController(text: "${user.phone ?? ""}") ,
+                      onChanged: ((x) => {_phone.text = x}),
                       showCursor: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -316,39 +343,10 @@ class _EditProfileState extends State<EditProfile> {
                               },
                             );
                           } else {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  content: Text(
-                                      "votre profile sera modifié"),
-                                  actions: [
-                                    TextButton(
-                                      child: Text("Enregistrer/Déconnexion",
-                                          style: TextStyle(
-                                              color: mainGreen,
-                                              fontFamily: defaultFontFamily,
-                                              fontSize: 16)),
-                                      onPressed: () {
-                                        setState(() {
-                                          Navigator.pushNamed(context, '/Login');
-                                        });
-                                      },
-                                    ),
-                                    TextButton(
-                                      child: Text("Annuler",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: defaultFontFamily,
-                                              fontSize: 16)),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
+                            user.name = _name.text;
+                            user.email = _email.text;
+                            user.phone = int.parse(_phone.text);
+                            Navigator.of(context).pop();
                           }
                         },
 
@@ -402,7 +400,9 @@ class _EditProfileState extends State<EditProfile> {
                                             fontFamily: defaultFontFamily,
                                             fontSize: 20)),
                                     onPressed: () {
-                                      Navigator.of(context).pop();
+                                      setState(() {
+                                        Navigator.pushNamed(context, '/Login');
+                                      });
                                     },
                                   ),
                                 ],
