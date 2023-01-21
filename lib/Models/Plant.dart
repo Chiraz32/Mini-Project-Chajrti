@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 
 List<Plant> plantFromJson(String str) =>
     List<Plant>.from(json.decode(str).map((x) => Plant.fromJson(x)));
@@ -12,20 +13,23 @@ class Plant {
   late String? image;
   late String description;
   late int price;
+  Client client;
 
   Plant(
       {required this.id,
       required this.name,
       this.image,
       required this.description,
-      required this.price});
+      required this.price,
+      required this.client});
 
   factory Plant.fromJson(Map<String, dynamic> json) => Plant(
       id: json["id"],
       name: json["name"],
       image: json["image"],
       description: json["description"],
-      price: json["price"]);
+      price: json["price"],
+      client: json["client"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -33,5 +37,6 @@ class Plant {
         "image": image,
         "description": description,
         "price": price,
+        "client": client
       };
 }
