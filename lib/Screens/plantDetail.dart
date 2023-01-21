@@ -1,4 +1,5 @@
 import 'package:chajrti/Constants/constants.dart';
+import 'package:chajrti/Providers/favoris_provider.dart';
 import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Widgets/Button.dart';
 import 'package:chajrti/Widgets/gridTilesPlants.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'dart:ui';
+import 'package:provider/provider.dart';
 
 class PlantDetail extends StatefulWidget {
   int index;
@@ -18,6 +20,9 @@ class PlantDetail extends StatefulWidget {
 class _PlantDetailState extends State<PlantDetail> {
   @override
   Widget build(BuildContext context) {
+    var plants = context.watch<FavoriteProvider>().myPlants;
+    var favs = context.watch<FavoriteProvider>().myFav;
+
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
@@ -47,17 +52,21 @@ class _PlantDetailState extends State<PlantDetail> {
             Padding(
               child: IconButton(
                 onPressed: () {
-                  setState(() {
-                    plants[widget.index].isFav == false
-                        ? plants[widget.index].isFav = true
-                        : plants[widget.index].isFav = false;
-                  });
+                  if (!favs.contains(plants[widget.index])) {
+                    context
+                        .read<FavoriteProvider>()
+                        .addToList(plants[widget.index]);
+                  } else {
+                    context
+                       .read<FavoriteProvider>()
+                        .removeFromList(plants[widget.index]);
+                  }
                 },
-                icon: plants[widget.index].isFav == false
-                    ? const Icon(Icons.favorite_outline,
-                        color: Colors.black, size: 40)
-                    : const Icon(Icons.favorite,
-                        color: Color(0xff00703C), size: 40),
+                icon: favs.contains(plants[widget.index])
+                    ? const Icon(Icons.favorite,
+                        color: Color(0xff00703C), size: 40)
+                    : const Icon(Icons.favorite_outline,
+                        color: Colors.black, size: 40),
               ),
               padding: EdgeInsets.only(right: 15),
             ),
