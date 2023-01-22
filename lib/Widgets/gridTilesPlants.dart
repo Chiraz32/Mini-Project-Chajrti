@@ -5,20 +5,26 @@ import '../Screens/plantDetail.dart';
 
 class GridTilesPlants extends StatelessWidget {
   late String name;
-  late String? image;
+  late String image;
   late String price;
   late int index;
 
   GridTilesPlants(
       {super.key,
       required this.name,
-      this.image,
+      required this.image,
       required this.price,
       required this.index});
 
   @override
   Widget build(BuildContext context) {
-    var newImage = image ?? "assets/defaultImage.jpg";
+    if (image == "") {
+      image = "assets/defaultImage.jpg";
+    }
+    else{
+      image = "assets/" + image;
+    }
+    
     dynamic size = MediaQuery.of(context).size;
     double height = size.height;
     double width = size.width;
@@ -44,7 +50,7 @@ class GridTilesPlants extends StatelessWidget {
                     Container(
                       height: 150,
                       child: Image.asset(
-                        newImage,
+                        image,
                         height: 120,
                       ),
                       width: 200,

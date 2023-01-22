@@ -29,6 +29,7 @@ class _EditProfileState extends State<EditProfile> {
         role: UserRoleEnum.buyer,
         mdp: '',
         salt: '',
+        token:''
     );
 
 
