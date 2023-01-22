@@ -34,10 +34,8 @@ class UserProvider with ChangeNotifier {
         headers: {'Content-Type': 'application/json'});
     if (response.statusCode == 201) {
       final Map<String, dynamic> responseData = json.decode(response.body);
-      debugPrint(responseData.toString());
       var token = responseData['accessToken'];
       Map<String, dynamic> payload = Jwt.parseJwt(token);
-      debugPrint(payload.toString());
       Client authUser = Client.fromJson(payload);
       loggedInStatus = "LoggedIn";
       notifyListeners();

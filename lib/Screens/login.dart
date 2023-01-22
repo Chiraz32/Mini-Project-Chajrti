@@ -194,10 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                             MaterialStateProperty.all<Color>(mainGreen),
                       ),
                       onPressed: () {
-                        final Future<Map<String, dynamic>> result = auth.login(
-                            _email.text.toString(), _password.text.toString());
-                        debugPrint("login "+_email.text.toString());
-
+                        
                         if (_email.text == "" || _password.text == "") {
                           showDialog(
                             context: context,
@@ -252,6 +249,8 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           );
                         } else {
+                          final Future<Map<String, dynamic>> result = auth.login(
+                            _email.text.toString(), _password.text.toString());
                           result.then((response) {
                             if (response['status']) {
                               user = response['user'];
