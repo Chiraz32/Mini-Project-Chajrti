@@ -1,9 +1,11 @@
 import 'dart:convert';
 
-List<Client> plantFromJson(String str) =>
+import 'package:chajrti/enum/user_role_enum.dart';
+
+List<Client> clientFromJson(String str) =>
     List<Client>.from(json.decode(str).map((x) => Client.fromJson(x)));
 
-String plantToJson(List<Client> data) =>
+String clientToJson(List<Client> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Client {
@@ -11,31 +13,32 @@ class Client {
   late String name;
   late String email;
   late String? image;
-  late String password;
+  late String mdp;
   late String salt;
   late int? phone;
-  late String role;
-  Client({
-    required this.id,
-    required this.email,
-    required this.name,
-    required this.password,
-    required this.salt,
-    required this.role,
-    this.phone,
-    this.image
-  });
+  late UserRoleEnum role;
+  
+  Client(
+      {required this.id,
+      required this.email,
+      required this.name,
+      required this.mdp,
+      required this.salt,
+      required this.role,
+      this.phone,
+      this.image,
+      });
 
   factory Client.fromJson(Map<String, dynamic> json) => Client(
         id: json["id"],
         name: json["name"],
         email: json["email"],
         image: json["image"] ?? "default.png",
-        password: json["password"] ?? "",
+        mdp: json["mdp"] ?? "",
         salt: json["salt"] ?? "",
         phone: json["phone"],
-        role: json["role"] ?? "",
-
+        role: json["role"] == "buyer"?UserRoleEnum.buyer:UserRoleEnum.seller,
+        
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,9 +46,9 @@ class Client {
         "name": name,
         "email": email,
         "image": image,
-        "password": password,
+        "mdp": mdp,
         "salt": salt,
         "phone": phone,
-        "role": role
+        "role": role,
       };
 }

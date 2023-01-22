@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields
 
 import 'package:chajrti/Constants/constants.dart';
+import 'package:chajrti/enum/user_role_enum.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
@@ -25,9 +26,13 @@ class _EditProfileState extends State<EditProfile> {
         name: "Idris",
         email: "test@test.t",
         image: "idrisphoto.jpg",
-        role: 'Seller',
-        password: '',
-        salt: '');
+        role: UserRoleEnum.buyer,
+        mdp: '',
+        salt: '',
+    );
+
+
+    
 
     String defaultFontFamily = 'Roboto-Light.ttf';
     double defaultIconSize = 20;
