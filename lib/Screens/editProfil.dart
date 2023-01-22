@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields
 
 import 'package:chajrti/Constants/constants.dart';
-import 'package:chajrti/enum/user_role_enum.dart';
+import 'package:chajrti/Models/Client.dart' as client;
+import 'package:chajrti/Models/Client.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-
-import '../Models/Client.dart';
+import 'package:provider/provider.dart';
+import '../Providers/user_provider.dart';
+import '../enum/user_role_enum.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -21,22 +23,46 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    var user = Client(
-        id: 1,
-        name: "Idris",
-        email: "test@test.t",
-        image: "idrisphoto.jpg",
-        role: UserRoleEnum.buyer,
-        mdp: '',
-        salt: '',
-        token:''
-    );
 
-
-    
-
+    // var user1 = Client(
+    //     id: 1,
+    //     name: "Idris",
+    //     email: "test@test.t",
+    //     image: "idrisphoto.jpg",
+    //     role: UserRoleEnum.buyer,
+    //     mdp: '',
+    //     salt: '',
+    //     token:''
+    // );
     String defaultFontFamily = 'Roboto-Light.ttf';
     double defaultIconSize = 20;
+    UserProvider auth = Provider.of<UserProvider>(context);
+    client.Client user = auth.user;
+    final Future<Map<String, dynamic>> result = auth.getInfo(auth.user.id);
+    result.then((response) {
+      if (response['status']) {
+        user = response['user'];
+        Provider.of<UserProvider>(context, listen: false).setUser(user);
+      } else {
+        return Scaffold(
+          appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.white,
+              leading: BackButton(color: Colors.black)),
+          body: Center(
+            child: Text(
+              response['message'],
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: defaultFontFamily,
+                fontWeight: FontWeight.w600,
+                fontSize: 25,
+              ),
+            ),
+          ),
+        );
+      }
+    });
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
@@ -361,68 +387,66 @@ class _EditProfileState extends State<EditProfile> {
                       height: 5,
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.all(17.0)),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                              side: BorderSide(color: Colors.red.shade700),
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.all(17.0)),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                side: BorderSide(color: Colors.red.shade700),
+                              ),
                             ),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.red.shade700),
                           ),
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.red.shade700),
-                        ),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text("Deconnexion",
-                                    style: TextStyle(
-                                        color: Colors.red.shade700,
-                                        fontFamily: defaultFontFamily,
-                                        fontSize: 20)),
-                                content: Text(
-                                    "Vouller vous vraiment vous déconnecter ?"),
-                                actions: [
-                                  TextButton(
-                                    child: Text("Oui",
-                                        style: TextStyle(
-                                            color: Colors.red.shade700,
-                                            fontFamily: defaultFontFamily,
-                                            fontSize: 20)),
-                                    onPressed: () {
-                                      setState(() {
-                                        Navigator.pushNamed(
-                                            context, '/Login');
-                                      });
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        child: Text(
-                          "Déconnexion",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'Poppins-Medium.ttf',
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Deconnexion",
+                                      style: TextStyle(
+                                          color: Colors.red.shade700,
+                                          fontFamily: defaultFontFamily,
+                                          fontSize: 20)),
+                                  content: Text(
+                                      "Vouller vous vraiment vous déconnecter ?"),
+                                  actions: [
+                                    TextButton(
+                                      child: Text("Oui",
+                                          style: TextStyle(
+                                              color: Colors.red.shade700,
+                                              fontFamily: defaultFontFamily,
+                                              fontSize: 20)),
+                                      onPressed: () {
+                                        setState(() {
+                                          Navigator.pushNamed(
+                                              context, '/Login');
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Text(
+                            "Déconnexion",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'Poppins-Medium.ttf',
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    ),
+                        )),
                     SizedBox(
                       height: 10,
                     ),
-                  ]
-                ),
+                  ]),
             ),
           ],
         ),
