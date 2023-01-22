@@ -99,26 +99,26 @@ class UserProvider with ChangeNotifier {
   }
 
 
-  Future<Map<String, dynamic>?> uploadProfileImaje(int id,File image, String? token) async {
-    final response = await http.patch(
-      Uri.http(ApiUrls.baseURL,'/client/update/${id}'),
-      body: image,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> responseData = json.decode(response.body);
-      Client authUser = Client.fromJson(responseData);
-      return {'status': true, 'message': 'successful', 'user': authUser};
-    } else {
-      return {
-        'status': false,
-        'message': json.decode(response.body)['message']
-      };
-    }
-  }
+  // Future<Map<String, dynamic>?> uploadProfileImage(int id,File image, String? token) async {
+  //   final response = await http.patch(
+  //     Uri.http(ApiUrls.baseURL,'/client/update/${id}'),
+  //     body: image,
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer $token',
+  //     },
+  //   );
+  //   if (response.statusCode == 200) {
+  //     final Map<String, dynamic> responseData = json.decode(response.body);
+  //     Client authUser = Client.fromJson(responseData);
+  //     return {'status': true, 'message': 'successful', 'user': authUser};
+  //   } else {
+  //     return {
+  //       'status': false,
+  //       'message': json.decode(response.body)['message']
+  //     };
+  //   }
+  // }
 
   
 }

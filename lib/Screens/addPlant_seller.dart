@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:chajrti/Constants/api_urls.dart';
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Providers/favoris_provider.dart';
+import 'package:chajrti/Providers/user_provider.dart';
 import 'package:chajrti/Widgets/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -26,6 +26,7 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<FavoriteProvider>(context);
+    final UserProvider auth = Provider.of<UserProvider>(context);
     return Scaffold(
         appBar: AppBar(
             elevation: 0,
@@ -132,7 +133,8 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
                               context,
                               _name.text.toString(),
                               _description.text.toString(),
-                              int.parse(_price.text).toString());
+                              int.parse(_price.text).toString(),
+                              auth.user.token);
                               debugPrint("clicked");
                         }))),
                 SizedBox(height: 15)
@@ -141,27 +143,4 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
   }
 }
 
-Future<Plant> postPlant(
-    BuildContext context, String name, String description, String price) async {
-      debugPrint("starting add");
-  var dataInput = {
-    "name": name,
-    "image": "",
-    "price": price,
-    "description": description,
-    "client": "",
-  };
-  final response = await http.post(
-      new Uri.http(ApiUrls.baseURL, ApiUrls.addPlant),
-      body: dataInput,
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      encoding: Encoding.getByName("utf-8"));
-      debugPrint("response is : "+ response.body.toString());
-      debugPrint("response  code is : "+ response.statusCode.toString());
 
-  if (response.statusCode == 201) {
-    return Plant.fromJson(json.decode(response.body));
-  } else {
-    throw Exception("something went wrong");
-  }
-}

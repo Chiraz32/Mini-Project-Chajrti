@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child:MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/AddPlant_Seller',
+        initialRoute: '/Login',
 
         routes: {
           '/Login': (context) => const LoginPage(),

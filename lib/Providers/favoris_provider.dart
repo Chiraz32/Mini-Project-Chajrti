@@ -34,11 +34,35 @@ class FavoriteProvider with ChangeNotifier {
     notifyListeners();
   }
   
-  AddPlant(context,name,description,price) async{
-    newPlant= await postPlant(context,name,description,price);
+  AddPlant(context,name,description,price,token) async{
+    newPlant= await postPlant(context,name,description,price,token);
     notifyListeners(); 
   }
-   
+   Future<Plant> postPlant(
+    BuildContext context, String name, String description, String price,String token) async {
+      debugPrint("starting add");
+  var dataInput = {
+    "name": name,
+    "image": "",
+    "price": price,
+    "description": description,
+    "client": "",
+  };
+  final response = await http.post(
+      new Uri.http(ApiUrls.baseURL, ApiUrls.addPlant),
+      body: dataInput,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json',
+      'Authorization': 'Bearer $token',},
+      encoding: Encoding.getByName("utf-8"),);
+      debugPrint("response is : "+ response.body.toString());
+      debugPrint("response  code is : "+ response.statusCode.toString());
+
+  if (response.statusCode == 201) {
+    return Plant.fromJson(json.decode(response.body));
+  } else {
+    throw Exception("something went wrong");
+  }
+}
 
   Future<List<Plant>> getAllPlants(String token) async {
     final response = await http
