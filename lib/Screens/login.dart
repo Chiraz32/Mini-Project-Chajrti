@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_final_fields, unnecessary_new
-
+import 'package:chajrti/Models/Client.dart' as client;
+import 'package:chajrti/Providers/user_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:chajrti/Constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:chajrti/enum/user_role_enum.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -14,15 +16,15 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isSeller = false;
   bool _obscureText = true;
-
   TextEditingController _email = new TextEditingController();
   TextEditingController _password = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    UserProvider auth = Provider.of<UserProvider>(context);
     String defaultFontFamily = 'Roboto-Light.ttf';
     double defaultIconSize = 20;
-
+    client.Client user;
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 20),
@@ -192,6 +194,10 @@ class _LoginPageState extends State<LoginPage> {
                             MaterialStateProperty.all<Color>(mainGreen),
                       ),
                       onPressed: () {
+                        final Future<Map<String, dynamic>> result = auth.login(
+                            _email.text.toString(), _password.text.toString());
+                        debugPrint("login "+_email.text.toString());
+
                         if (_email.text == "" || _password.text == "") {
                           showDialog(
                             context: context,
@@ -246,18 +252,38 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           );
                         } else {
-                          if (isSeller) {
-                            setState(() {
-                              Navigator.pushNamed(
-                                  context, '/ProductList_Seller');
-                            });
-                          } else {
-                            setState(() {
-                              Navigator.pushNamed(
-                                  context, '/ProductList_Client');
-                            });
-                          }
+                          result.then((response) {
+                            if (response['status']) {
+                              user = response['user'];
+                              Provider.of<UserProvider>(context, listen: false)
+                                  .setUser(user);
+                              if (user.role == UserRoleEnum.seller) {
+                                setState(() {
+                                  Navigator.pushNamed(
+                                      context, '/ProductList_Seller');
+                                });
+                              } else if (user.role == UserRoleEnum.buyer) {
+                                setState(() {
+                                  Navigator.pushNamed(
+                                      context, '/ProductList_Client');
+                                });
+                              }
+                            }
+                          });
                         }
+                        //  {
+                        //   if (isSeller) {
+                        //     setState(() {
+                        //       Navigator.pushNamed(
+                        //           context, '/ProductList_Seller');
+                        //     });
+                        //   } else {
+                        //     setState(() {
+                        //       Navigator.pushNamed(
+                        //           context, '/ProductList_Client');
+                        //     });
+                        //   }
+                        // }
                       },
                       child: Text(
                         "Se Connecter",
