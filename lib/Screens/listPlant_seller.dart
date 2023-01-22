@@ -4,7 +4,11 @@ import 'package:chajrti/Widgets/gridTilesPlants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'dart:ui';
+
+import '../Providers/favoris_provider.dart';
+import '../Providers/user_provider.dart';
 
 class PlantList_Seller extends StatefulWidget {
   const PlantList_Seller({super.key});
@@ -16,8 +20,9 @@ class PlantList_Seller extends StatefulWidget {
 class _PlantList_SellerState extends State<PlantList_Seller> {
   @override
   Widget build(BuildContext context) {
+    FavoriteProvider prov = Provider.of<FavoriteProvider>(context);
+    UserProvider auth = Provider.of<UserProvider>(context);
     return Scaffold(
-
         appBar: AppBar(
           elevation: 0,
           title: const Text("  Vos Produits",
