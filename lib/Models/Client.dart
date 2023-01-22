@@ -17,17 +17,19 @@ class Client {
   late String salt;
   late int? phone;
   late UserRoleEnum role;
-  
-  Client(
-      {required this.id,
-      required this.email,
-      required this.name,
-      required this.mdp,
-      required this.salt,
-      required this.role,
-      this.phone,
-      this.image,
-      });
+  String token;
+
+  Client({
+    required this.id,
+    required this.email,
+    required this.name,
+    required this.mdp,
+    required this.salt,
+    required this.role,
+    this.phone,
+    this.image,
+    required this.token
+  });
 
   factory Client.fromJson(Map<String, dynamic> json) => Client(
         id: json["id"],
@@ -37,8 +39,8 @@ class Client {
         mdp: json["mdp"] ?? "",
         salt: json["salt"] ?? "",
         phone: json["phone"],
-        role: json["role"] == "buyer"?UserRoleEnum.buyer:UserRoleEnum.seller,
-        
+        role:json["role"] == "buyer" ? UserRoleEnum.buyer : UserRoleEnum.seller,
+        token: json["token"]??""
       );
 
   Map<String, dynamic> toJson() => {
@@ -50,5 +52,6 @@ class Client {
         "salt": salt,
         "phone": phone,
         "role": role,
+        "token": token
       };
 }
