@@ -1,5 +1,4 @@
-import 'dart:html';
-
+import 'package:chajrti/Models/Client.dart';
 import 'package:chajrti/Models/Plant.dart';
 import 'package:chajrti/Models/order.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +10,8 @@ Color lighterGreen = const Color(0xffF2F4F3);
 Color grey = const Color(0xffEFEFEF);
 Color darkGrey = const Color.fromARGB(255, 111, 111, 111);
 
+List<Client> users = [];
 List<Plant> plants = [
-
   // Plant(
   //     id: 1,
   //     name: "Cactus",
@@ -38,12 +37,10 @@ List<Plant> plants = [
   //     price: 55,
   //       ),
 
-
   // Order(id: 1, state: "en attente",  clientId: "client01 ", plantId: plants[0],),
   // Order(id: 2, state: "refusée",  clientId: "client02 ", plantId: plants[2],),
   // Order(id: 3, state: "acceptée", plantId: plants[0], clientId: "client03 "),
 
-     
   // Plant(
   //     id: 1,
   //     name: "Cactus",
@@ -68,7 +65,5 @@ List<Plant> plants = [
   //         "Les orchidées roses sont une merveilleuse façon d'envoyer votre amour à un ami ou à une personne importante. Nous proposons de petites plantes d'orchidées roses, de grandes orchidées roses et des tiges d'orchidées roses qui s'épanouissent dans un bouquet. ",
   //     price: 55,
   //     client: Client ()),
-      
-
 ];
 List<Order> orders = [];

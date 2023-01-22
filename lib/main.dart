@@ -1,7 +1,5 @@
-
 import 'package:chajrti/Providers/favoris_provider.dart';
-import 'package:chajrti/Providers/order_provider.dart';
-
+import 'package:chajrti/Providers/user_provider.dart';
 import 'package:chajrti/Screens/addPlant_seller.dart';
 import 'package:chajrti/Screens/editProfil.dart';
 import 'package:chajrti/Screens/listPlant_client.dart';
@@ -13,22 +11,22 @@ import 'package:chajrti/Screens/ordersList_seller.dart';
 import 'package:provider/provider.dart';
 import 'Screens/plantDetail.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 void main() {
 
-  runApp( MyApp(),);
+  runApp( MyApp());
 
 }
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
 
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (ctx) => OrderProvider(),
+          create: (ctx) => UserProvider(),
         ),
         ChangeNotifierProvider(
           create: (ctx) => FavoriteProvider(),
@@ -36,8 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child:MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/OrdersList_Client',
-
+        initialRoute: '/Login',
 
         routes: {
           '/Login': (context) => const LoginPage(),
