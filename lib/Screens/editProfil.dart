@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields
 
+import 'dart:html';
+
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Models/Client.dart' as client;
 import 'package:chajrti/Models/Client.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../Providers/user_provider.dart';
 import '../enum/user_role_enum.dart';
@@ -36,9 +39,10 @@ class _EditProfileState extends State<EditProfile> {
     // );
     String defaultFontFamily = 'Roboto-Light.ttf';
     double defaultIconSize = 20;
-    UserProvider auth = Provider.of<UserProvider>(context);
+    UserProvider? auth = Provider.of<UserProvider>(context);
     client.Client user = auth.user;
-    final Future<Map<String, dynamic>> result = auth.getInfo(auth.user.id);
+    final Future<Map<String, dynamic>> result =
+        auth.getInfo(auth.user.id, auth.token);
     result.then((response) {
       if (response['status']) {
         user = response['user'];
@@ -107,7 +111,6 @@ class _EditProfileState extends State<EditProfile> {
                               image: AssetImage("assets/${user.image}"),
                             ),
                           ),
-                          // child : Image.asset("assets/${user.image}"),
                         )),
                         Expanded(
                           child: IconButton(
@@ -134,6 +137,46 @@ class _EditProfileState extends State<EditProfile> {
                                                 fontFamily: defaultFontFamily,
                                                 fontSize: 16)),
                                         onPressed: () {
+                                          // upload image
+                                          // Future<XFile?> image = ImagePicker.pickImage(source: ImageSource.gallery);
+                                          // final Future<Map<String, dynamic>?> editImage =
+                                          //     auth.uploadProfileImaje(auth.user.id, File(image!.path, image.name), auth.token);
+                                          // editImage.then((response) {
+                                          //   if (response["status"]) {
+                                          //     Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //         builder: (context) => EditProfile(),
+                                          //       ),
+                                          //     );
+                                          //   } else {
+                                          //     showDialog(
+                                          //       context: context,
+                                          //       builder: (BuildContext context) {
+                                          //         return AlertDialog(
+                                          //           title: Text("Erreur",
+                                          //               style: TextStyle(
+                                          //                   color: mainGreen,
+                                          //                   fontFamily: defaultFontFamily,
+                                          //                   fontSize: 20)),
+                                          //           content: Text(response["message"]),
+                                          //           actions: [
+                                          //             TextButton(
+                                          //               child: Text("OK",
+                                          //                   style: TextStyle(
+                                          //                       color: mainGreen,
+                                          //                       fontFamily: defaultFontFamily,
+                                          //                       fontSize: 16)),
+                                          //               onPressed: () {
+                                          //                 Navigator.of(context).pop();
+                                          //               },
+                                          //             ),
+                                          //           ],
+                                          //         );
+                                          //       },
+                                          //     );
+                                          //   }
+                                          // });
                                           Navigator.of(context).pop();
                                         },
                                       ),
@@ -369,9 +412,52 @@ class _EditProfileState extends State<EditProfile> {
                                 );
                               },
                             );
-                          } else {}
+                          } else {
+                            Map<String, dynamic> data = {
+                              "name": _name.text,
+                              "email": _email.text,
+                              "phone": _phone.text,
+                            };
+                            final Future<Map<String, dynamic>> editSave =
+                                auth.updateInfo(auth.user.id, data, auth.token);
+                            editSave.then((response) {
+                              if (response["status"]) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EditProfile(),
+                                  ),
+                                );
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Erreur",
+                                          style: TextStyle(
+                                              color: mainGreen,
+                                              fontFamily: defaultFontFamily,
+                                              fontSize: 20)),
+                                      content: Text(response["message"]),
+                                      actions: [
+                                        TextButton(
+                                          child: Text("OK",
+                                              style: TextStyle(
+                                                  color: mainGreen,
+                                                  fontFamily: defaultFontFamily,
+                                                  fontSize: 16)),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            });
+                          }
                         },
-
                         child: Text(
                           "Enregistrer",
                           style: TextStyle(
