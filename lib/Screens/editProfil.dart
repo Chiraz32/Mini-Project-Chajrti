@@ -337,41 +337,7 @@ class _EditProfileState extends State<EditProfile> {
                                 );
                               },
                             );
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  content: Text("votre profile sera modifié"),
-                                  actions: [
-                                    TextButton(
-                                      child: Text("Enregistrer/Déconnexion",
-                                          style: TextStyle(
-                                              color: mainGreen,
-                                              fontFamily: defaultFontFamily,
-                                              fontSize: 16)),
-                                      onPressed: () {
-                                        setState(() {
-                                          Navigator.pushNamed(
-                                              context, '/Login');
-                                        });
-                                      },
-                                    ),
-                                    TextButton(
-                                      child: Text("Annuler",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: defaultFontFamily,
-                                              fontSize: 16)),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
+                          } else {}
                         },
 
                         child: Text(
@@ -389,66 +355,68 @@ class _EditProfileState extends State<EditProfile> {
                       height: 5,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.all(17.0)),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                side: BorderSide(color: Colors.red.shade700),
-                              ),
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              EdgeInsets.all(17.0)),
+                          shape: MaterialStateProperty.all<
+                              RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              side: BorderSide(color: Colors.red.shade700),
                             ),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.red.shade700),
                           ),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Deconnexion",
-                                      style: TextStyle(
-                                          color: Colors.red.shade700,
-                                          fontFamily: defaultFontFamily,
-                                          fontSize: 20)),
-                                  content: Text(
-                                      "Vouller vous vraiment vous déconnecter ?"),
-                                  actions: [
-                                    TextButton(
-                                      child: Text("Oui",
-                                          style: TextStyle(
-                                              color: Colors.red.shade700,
-                                              fontFamily: defaultFontFamily,
-                                              fontSize: 20)),
-                                      onPressed: () {
-                                        setState(() {
-                                          Navigator.pushNamed(
-                                              context, '/Login');
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          child: Text(
-                            "Déconnexion",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'Poppins-Medium.ttf',
-                            ),
-                            textAlign: TextAlign.center,
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.red.shade700),
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Deconnexion",
+                                    style: TextStyle(
+                                        color: Colors.red.shade700,
+                                        fontFamily: defaultFontFamily,
+                                        fontSize: 20)),
+                                content: Text(
+                                    "Vouller vous vraiment vous déconnecter ?"),
+                                actions: [
+                                  TextButton(
+                                    child: Text("Oui",
+                                        style: TextStyle(
+                                            color: Colors.red.shade700,
+                                            fontFamily: defaultFontFamily,
+                                            fontSize: 20)),
+                                    onPressed: () {
+                                      setState(() {
+                                        Navigator.pushNamed(
+                                            context, '/Login');
+                                      });
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Text(
+                          "Déconnexion",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'Poppins-Medium.ttf',
                           ),
-                        )),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ),
                     SizedBox(
                       height: 10,
                     ),
-                  ]),
+                  ]
+                ),
             ),
           ],
         ),
