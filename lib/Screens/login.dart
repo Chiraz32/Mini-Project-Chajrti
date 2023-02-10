@@ -146,32 +146,32 @@ class _LoginPageState extends State<LoginPage> {
                     height: 15,
                   ),
                   //add checkbox
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Checkbox(
-                            value: isSeller,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isSeller = value!;
-                              });
-                            },
-                            activeColor: mainGreen,
-                          ),
-                          Text(
-                            "Je suis un Commerçant",
-                            style: TextStyle(
-                              color: mainGreen,
-                              fontSize: 14,
-                              fontFamily: 'Poppins-Medium.ttf',
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: <Widget>[
+                  //     Row(
+                  //       children: <Widget>[
+                  //         Checkbox(
+                  //           value: isSeller,
+                  //           onChanged: (bool? value) {
+                  //             setState(() {
+                  //               isSeller = value!;
+                  //             });
+                  //           },
+                  //           activeColor: mainGreen,
+                  //         ),
+                  //         Text(
+                  //           "Je suis un Commerçant",
+                  //           style: TextStyle(
+                  //             color: mainGreen,
+                  //             fontSize: 14,
+                  //             fontFamily: 'Poppins-Medium.ttf',
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
 
                   SizedBox(
                     height: 30,
@@ -194,7 +194,6 @@ class _LoginPageState extends State<LoginPage> {
                             MaterialStateProperty.all<Color>(mainGreen),
                       ),
                       onPressed: () {
-                        
                         if (_email.text == "" || _password.text == "") {
                           showDialog(
                             context: context,
@@ -249,8 +248,9 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           );
                         } else {
-                          final Future<Map<String, dynamic>> result = auth.login(
-                            _email.text.toString(), _password.text.toString());
+                          final Future<Map<String, dynamic>> result =
+                              auth.login(_email.text.toString(),
+                                  _password.text.toString());
                           result.then((response) {
                             if (response['status']) {
                               user = response['user'];
@@ -267,6 +267,31 @@ class _LoginPageState extends State<LoginPage> {
                                       context, '/ProductList_Client');
                                 });
                               }
+                            } else {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Erreur",
+                                    style: TextStyle(
+                                        color: mainGreen,
+                                        fontFamily: defaultFontFamily,
+                                        fontSize: 20)),
+                                content: Text("the email and password that you entered do not match our records. Please try again"),
+                                actions: [
+                                  TextButton(
+                                    child: Text("OK",
+                                        style: TextStyle(
+                                            color: mainGreen,
+                                            fontFamily: defaultFontFamily,
+                                            fontSize: 16)),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                                    );
+                                  });
                             }
                           });
                         }
