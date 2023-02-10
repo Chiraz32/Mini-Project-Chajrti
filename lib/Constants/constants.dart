@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:chajrti/Models/Client.dart';
 import 'package:chajrti/Models/Plant.dart';
 import 'package:chajrti/Models/order.dart';
@@ -11,7 +13,7 @@ Color grey = const Color(0xffEFEFEF);
 Color darkGrey = const Color.fromARGB(255, 111, 111, 111);
 
 List<Client> users = [];
-List<Plant> plants = [
+List<Plant> plants = [];
   // Plant(
   //     id: 1,
   //     name: "Cactus",
@@ -65,5 +67,5 @@ List<Plant> plants = [
   //         "Les orchidées roses sont une merveilleuse façon d'envoyer votre amour à un ami ou à une personne importante. Nous proposons de petites plantes d'orchidées roses, de grandes orchidées roses et des tiges d'orchidées roses qui s'épanouissent dans un bouquet. ",
   //     price: 55,
   //     client: Client ()),
-];
+// ];
 List<Order> orders = [];
