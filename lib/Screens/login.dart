@@ -144,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 15,
                   ),
+
                   SizedBox(
                     height: 30,
                   ),
@@ -224,9 +225,11 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           );
                         } else {
-                          final Future<Map<String, dynamic>> result = auth.login(
-                            _email.text.toString(), _password.text.toString());
-                          
+
+                          final Future<Map<String, dynamic>> result =
+                              auth.login(_email.text.toString(),
+                                  _password.text.toString());
+
                           result.then((response) {
                             if (response['status']) {
                               user = response['user'];
@@ -245,34 +248,31 @@ class _LoginPageState extends State<LoginPage> {
                               }
                             } else {
                               showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Erreur",
-                                      style: TextStyle(
+
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Erreur",
+                                    style: TextStyle(
                                         color: mainGreen,
                                         fontFamily: defaultFontFamily,
-                                        fontSize: 20,
-                                      )
-                                    ),
-                                  content: Text(response['message']),
-                                    actions: [
-                                      TextButton(
-                                        child: Text("OK",
-                                          style: TextStyle(
+                                        fontSize: 20)),
+                                content: Text("the email and password that you entered do not match our records. Please try again"),
+                                actions: [
+                                  TextButton(
+                                    child: Text("OK",
+                                        style: TextStyle(
                                             color: mainGreen,
                                             fontFamily: defaultFontFamily,
-                                            fontSize: 16,
-                                          )
-                                        ),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                                            fontSize: 16)),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                                    );
+                                  });
+
                             }
                           });
                         }

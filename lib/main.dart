@@ -38,9 +38,7 @@ class MyApp extends StatelessWidget {
 
         routes: {
           '/Login': (context) => const LoginPage(),
-
           '/ProductList_Client': (context) => const PlantList_Client(),
-
           '/OrdersList_Client': (context) => const OrdersList_Client(),
           '/ProfileEdit': (context) => const EditProfile(),
           '/ProductList_Seller': (context) => const PlantList_Seller(),

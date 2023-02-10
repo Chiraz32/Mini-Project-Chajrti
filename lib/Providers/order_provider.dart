@@ -7,8 +7,9 @@ import 'package:http/http.dart' as http;
 
 class orderProvider with ChangeNotifier{
   List<Order> _orders = [];
-   List<Order> get myOrders => _orders;
-  late Order newOrder;
+
+  List<Order> get myOrders => _orders;
+
 
  Future<List<Order>> getAllOrders(String token) async {
     final response = await http
@@ -17,8 +18,11 @@ class orderProvider with ChangeNotifier{
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     });
+
+
     var data = jsonDecode((response.body.toString()));
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
+
       _orders.clear();
       for (Map<String, dynamic> i in data) {
         debugPrint(i.toString());

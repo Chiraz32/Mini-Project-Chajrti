@@ -1,5 +1,7 @@
-import 'dart:convert';
-import 'package:chajrti/Constants/api_urls.dart';
+
+import 'dart:html';
+
+
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Providers/favoris_provider.dart';
 import 'package:chajrti/Providers/user_provider.dart';
@@ -8,12 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
-import '../Models/Plant.dart';
+
+import '../Providers/favoris_provider.dart';
+import '../Providers/user_provider.dart';
+
 
 class AddPlant_Seller extends StatefulWidget {
   const AddPlant_Seller({super.key});
+
 
   @override
   State<AddPlant_Seller> createState() => _AddPlant_SellerState();
@@ -63,7 +68,9 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
                       ),
-                      hintText: "Nom du plante",
+
+                      hintText: "Nom de la plante",
+
                     ),
                   ),
                 ),
@@ -135,7 +142,9 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
                               _description.text.toString(),
                               int.parse(_price.text).toString(),
                               auth.user.token);
-                              debugPrint("clicked");
+
+                          debugPrint("clicked");
+
                         }))),
                 SizedBox(height: 15)
               ],
