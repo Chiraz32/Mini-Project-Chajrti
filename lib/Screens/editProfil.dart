@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields
-
-
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/enum/user_role_enum.dart';
 import 'package:email_validator/email_validator.dart';
