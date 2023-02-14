@@ -165,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                         backgroundColor:
                             MaterialStateProperty.all<Color>(mainGreen),
                       ),
-                      onPressed: () {
+                      onPressed: ()async {
 
                         if (_email.text == "" || _password.text == "") {
                           showDialog(
@@ -226,11 +226,11 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         } else {
 
-                          final Future<Map<String, dynamic>> result =
+                          final Future<Map<String, dynamic>> result = 
                               auth.login(_email.text.toString(),
                                   _password.text.toString());
 
-                          result.then((response) {
+                         await result.then((response) {
                             if (response['status']) {
                               user = response['user'];
                               Provider.of<UserProvider>(context, listen: false)

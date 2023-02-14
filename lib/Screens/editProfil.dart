@@ -1,16 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields
-
-import 'dart:html';
-
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Models/Client.dart' as client;
-import 'package:chajrti/Models/Client.dart';
+import 'package:chajrti/Providers/user_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import '../Providers/user_provider.dart';
-import '../enum/user_role_enum.dart';
+
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -52,7 +46,7 @@ class _EditProfileState extends State<EditProfile> {
           appBar: AppBar(
               elevation: 0,
               backgroundColor: Colors.white,
-              leading: BackButton(color: Colors.black)),
+              leading: const BackButton(color: Colors.black)),
           body: Center(
             child: Text(
               response['message'],
@@ -71,9 +65,9 @@ class _EditProfileState extends State<EditProfile> {
       appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          leading: BackButton(color: Colors.black)),
+          leading: const BackButton(color: Colors.black)),
       body: Container(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Colors.white70,
@@ -93,113 +87,112 @@ class _EditProfileState extends State<EditProfile> {
                         fontSize: 25,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Container(
-                        child: Stack(
+                    Stack(
                       alignment: Alignment.bottomRight,
                       children: <Widget>[
-                        Expanded(
-                            child: Container(
-                          width: 200,
-                          height: 200,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage("assets/${user.image}"),
-                            ),
-                          ),
-                        )),
-                        Expanded(
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.edit_note_rounded,
-                              color: mainGreen,
-                            ),
-                            iconSize: defaultIconSize * 2.5,
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Changez votre photo de profil",
+                    Expanded(
+                        child: Container(
+                      width: 200,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage("assets/${user.image}"),
+                        ),
+                      ),
+                    )),
+                    Expanded(
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.edit_note_rounded,
+                          color: mainGreen,
+                        ),
+                        iconSize: defaultIconSize * 2.5,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Changez votre photo de profil",
+                                    style: TextStyle(
+                                        color: mainGreen,
+                                        fontFamily: defaultFontFamily,
+                                        fontSize: 20)),
+                                actions: [
+                                  TextButton(
+                                    child: Text("Importer",
                                         style: TextStyle(
                                             color: mainGreen,
                                             fontFamily: defaultFontFamily,
-                                            fontSize: 20)),
-                                    actions: [
-                                      TextButton(
-                                        child: Text("Importer",
-                                            style: TextStyle(
-                                                color: mainGreen,
-                                                fontFamily: defaultFontFamily,
-                                                fontSize: 16)),
-                                        onPressed: () {
-                                          // upload image
-                                          // Future<XFile?> image = ImagePicker.pickImage(source: ImageSource.gallery);
-                                          // final Future<Map<String, dynamic>?> editImage =
-                                          //     auth.uploadProfileImaje(auth.user.id, File(image!.path, image.name), auth.token);
-                                          // editImage.then((response) {
-                                          //   if (response["status"]) {
-                                          //     Navigator.push(
-                                          //       context,
-                                          //       MaterialPageRoute(
-                                          //         builder: (context) => EditProfile(),
-                                          //       ),
-                                          //     );
-                                          //   } else {
-                                          //     showDialog(
-                                          //       context: context,
-                                          //       builder: (BuildContext context) {
-                                          //         return AlertDialog(
-                                          //           title: Text("Erreur",
-                                          //               style: TextStyle(
-                                          //                   color: mainGreen,
-                                          //                   fontFamily: defaultFontFamily,
-                                          //                   fontSize: 20)),
-                                          //           content: Text(response["message"]),
-                                          //           actions: [
-                                          //             TextButton(
-                                          //               child: Text("OK",
-                                          //                   style: TextStyle(
-                                          //                       color: mainGreen,
-                                          //                       fontFamily: defaultFontFamily,
-                                          //                       fontSize: 16)),
-                                          //               onPressed: () {
-                                          //                 Navigator.of(context).pop();
-                                          //               },
-                                          //             ),
-                                          //           ],
-                                          //         );
-                                          //       },
-                                          //     );
-                                          //   }
-                                          // });
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                      TextButton(
-                                        child: Text("Annuler",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontFamily: defaultFontFamily,
-                                                fontSize: 16)),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
+                                            fontSize: 16)),
+                                    onPressed: () {
+                                      // upload image
+                                      // Future<XFile?> image = ImagePicker.pickImage(source: ImageSource.gallery);
+                                      // final Future<Map<String, dynamic>?> editImage =
+                                      //     auth.uploadProfileImaje(auth.user.id, File(image!.path, image.name), auth.token);
+                                      // editImage.then((response) {
+                                      //   if (response["status"]) {
+                                      //     Navigator.push(
+                                      //       context,
+                                      //       MaterialPageRoute(
+                                      //         builder: (context) => EditProfile(),
+                                      //       ),
+                                      //     );
+                                      //   } else {
+                                      //     showDialog(
+                                      //       context: context,
+                                      //       builder: (BuildContext context) {
+                                      //         return AlertDialog(
+                                      //           title: Text("Erreur",
+                                      //               style: TextStyle(
+                                      //                   color: mainGreen,
+                                      //                   fontFamily: defaultFontFamily,
+                                      //                   fontSize: 20)),
+                                      //           content: Text(response["message"]),
+                                      //           actions: [
+                                      //             TextButton(
+                                      //               child: Text("OK",
+                                      //                   style: TextStyle(
+                                      //                       color: mainGreen,
+                                      //                       fontFamily: defaultFontFamily,
+                                      //                       fontSize: 16)),
+                                      //               onPressed: () {
+                                      //                 Navigator.of(context).pop();
+                                      //               },
+                                      //             ),
+                                      //           ],
+                                      //         );
+                                      //       },
+                                      //     );
+                                      //   }
+                                      // });
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text("Annuler",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: defaultFontFamily,
+                                            fontSize: 16)),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
                               );
                             },
-                          ),
-                        )
+                          );
+                        },
+                      ),
+                    )
                       ],
-                    )),
-                    SizedBox(
+                    ),
+                    const SizedBox(
                       height: 30,
                     ),
                     TextField(
@@ -208,7 +201,7 @@ class _EditProfileState extends State<EditProfile> {
                       onChanged: ((x) => {_name.text = x}),
                       showCursor: true,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(30.0)),
                           borderSide: BorderSide(
                             width: 0,
@@ -236,7 +229,7 @@ class _EditProfileState extends State<EditProfile> {
                         height: 1,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextField(
@@ -245,7 +238,7 @@ class _EditProfileState extends State<EditProfile> {
                       onChanged: ((x) => {_email.text = x}),
                       showCursor: true,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(30.0)),
                           borderSide: BorderSide(
                             width: 0,
@@ -273,7 +266,7 @@ class _EditProfileState extends State<EditProfile> {
                         height: 1,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextField(
@@ -282,7 +275,7 @@ class _EditProfileState extends State<EditProfile> {
                       onChanged: ((x) => {_phone.text = x}),
                       showCursor: true,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(30.0)),
                           borderSide: BorderSide(
                             width: 0,
@@ -310,16 +303,16 @@ class _EditProfileState extends State<EditProfile> {
                         height: 1,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.6,
                       child: ElevatedButton(
                         //add padding to the button
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.all(17.0)),
+                              const EdgeInsets.all(17.0)),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
@@ -342,7 +335,7 @@ class _EditProfileState extends State<EditProfile> {
                                           fontFamily: defaultFontFamily,
                                           fontSize: 20)),
                                   content:
-                                      Text("Email ou nom d'utilisateur vide"),
+                                      const Text("Email ou nom d'utilisateur vide"),
                                   actions: [
                                     TextButton(
                                       child: Text("OK",
@@ -368,7 +361,7 @@ class _EditProfileState extends State<EditProfile> {
                                           color: mainGreen,
                                           fontFamily: defaultFontFamily,
                                           fontSize: 20)),
-                                  content: Text("Email non valid"),
+                                  content: const Text("Email non valid"),
                                   actions: [
                                     TextButton(
                                       child: Text("OK",
@@ -396,7 +389,7 @@ class _EditProfileState extends State<EditProfile> {
                                           fontFamily: defaultFontFamily,
                                           fontSize: 20)),
                                   content:
-                                      Text("Numéro de téléphone non valid"),
+                                      const Text("Numéro de téléphone non valid"),
                                   actions: [
                                     TextButton(
                                       child: Text("OK",
@@ -425,7 +418,7 @@ class _EditProfileState extends State<EditProfile> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => EditProfile(),
+                                    builder: (context) => const EditProfile(),
                                   ),
                                 );
                               } else {
@@ -458,7 +451,7 @@ class _EditProfileState extends State<EditProfile> {
                             });
                           }
                         },
-                        child: Text(
+                        child: const Text(
                           "Enregistrer",
                           style: TextStyle(
                             color: Colors.white,
@@ -469,7 +462,7 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Container(
@@ -477,7 +470,7 @@ class _EditProfileState extends State<EditProfile> {
                         child: ElevatedButton(
                           style: ButtonStyle(
                             padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.all(17.0)),
+                                const EdgeInsets.all(17.0)),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(
@@ -498,7 +491,7 @@ class _EditProfileState extends State<EditProfile> {
                                           color: Colors.red.shade700,
                                           fontFamily: defaultFontFamily,
                                           fontSize: 20)),
-                                  content: Text(
+                                  content: const Text(
                                       "Vouller vous vraiment vous déconnecter ?"),
                                   actions: [
                                     TextButton(
@@ -519,7 +512,7 @@ class _EditProfileState extends State<EditProfile> {
                               },
                             );
                           },
-                          child: Text(
+                          child: const Text(
                             "Déconnexion",
                             style: TextStyle(
                               color: Colors.white,
@@ -529,7 +522,7 @@ class _EditProfileState extends State<EditProfile> {
                             textAlign: TextAlign.center,
                           ),
                         )),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                   ]),

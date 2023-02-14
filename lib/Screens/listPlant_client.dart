@@ -1,4 +1,4 @@
-import 'package:chajrti/Constants/constants.dart';
+
 import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Models/Plant.dart';
 import 'package:chajrti/Providers/favoris_provider.dart';
