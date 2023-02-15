@@ -1,4 +1,4 @@
-import 'dart:html';
+// import 'dart:html';
 
 import 'package:chajrti/Models/Client.dart';
 import 'package:chajrti/enum/user_role_enum.dart';
@@ -6,7 +6,7 @@ import 'package:chajrti/Constants/api_urls.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
 class UserProvider with ChangeNotifier {
@@ -98,26 +98,26 @@ class UserProvider with ChangeNotifier {
   }
 
 
-  Future<Map<String, dynamic>?> uploadProfileImaje(int id,File image, String? token) async {
-    final response = await http.patch(
-      Uri.http(ApiUrls.baseURL,'/client/update/${id}'),
-      body: image,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> responseData = json.decode(response.body);
-      Client authUser = Client.fromJson(responseData);
-      return {'status': true, 'message': 'successful', 'user': authUser};
-    } else {
-      return {
-        'status': false,
-        'message': json.decode(response.body)['message']
-      };
-    }
-  }
+  // Future<Map<String, dynamic>?> uploadProfileImaje(int id,File image, String? token) async {
+  //   final response = await http.patch(
+  //     Uri.http(ApiUrls.baseURL,'/client/update/${id}'),
+  //     body: image,
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer $token',
+  //     },
+  //   );
+  //   if (response.statusCode == 200) {
+  //     final Map<String, dynamic> responseData = json.decode(response.body);
+  //     Client authUser = Client.fromJson(responseData);
+  //     return {'status': true, 'message': 'successful', 'user': authUser};
+  //   } else {
+  //     return {
+  //       'status': false,
+  //       'message': json.decode(response.body)['message']
+  //     };
+  //   }
+  // }
 
   
 }

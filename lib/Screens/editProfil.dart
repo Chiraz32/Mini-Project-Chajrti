@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields
 
-import 'dart:html';
+// import 'dart:html';
 
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Models/Client.dart' as client;
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../Providers/user_provider.dart';
 
@@ -84,7 +84,7 @@ class _EditProfileState extends State<EditProfile> {
                       height: 10,
                     ),
                     Container(
-                        child: Stack(
+                      child: Stack(
                       alignment: Alignment.bottomRight,
                       children: <Widget>[
                         Expanded(
