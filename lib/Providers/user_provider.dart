@@ -57,9 +57,31 @@ class UserProvider with ChangeNotifier {
     return result;
   }
 
+  Future<Map<String, dynamic>> register(String email, String mdp, String username) async {
+    Map<String, dynamic> result;
+    Map data = {'email': email, 'mdp': mdp, 'name': username};
+    loggedInStatus = "Authenticating";
+    final response = await http.post(
+        Uri.http(ApiUrls.baseURL, ApiUrls.inscrit),
+        body: json.encode(data),
+        headers: {'Content-Type': 'application/json'});
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      Client authUser = Client.fromJson(responseData);
+      result = {'status': true, 'message': 'successful', 'user': authUser};
+    } else {
+      result = {
+        'status': false,
+        'message': json.decode(response.body)['message']
+      };
+    }
+    return result;
+  }
+
+
   Future<Map<String, dynamic>> getInfo(int id, String? token) async {
     final response = await http.get(
-      Uri.http(ApiUrls.baseURL, '/client/${id}'),
+      Uri.http(ApiUrls.baseURL, '/client/$id'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -79,7 +101,7 @@ class UserProvider with ChangeNotifier {
 
   Future<Map<String, dynamic>> updateInfo(int id,Map data, String? token) async {
     final response = await http.patch(
-      Uri.http(ApiUrls.baseURL,'/client/update/${id}'),
+      Uri.http(ApiUrls.baseURL,'/client/update/$id'),
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',

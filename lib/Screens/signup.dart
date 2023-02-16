@@ -5,18 +5,18 @@ import 'package:email_validator/email_validator.dart';
 import 'package:chajrti/Constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:chajrti/enum/user_role_enum.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   bool _obscureText = true;
   TextEditingController _email = new TextEditingController();
   TextEditingController _password = new TextEditingController();
+  TextEditingController _username = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Image.asset("assets/connexionImage.png"),
                 ),
                 Text(
-                  "Connexion",
+                  "Creer un compte",
                   style: TextStyle(
                     color: Colors.black,
                     fontFamily: defaultFontFamily,
@@ -55,6 +55,41 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(
                   height: 5,
+                ),
+                TextField(
+                  controller: _username,
+                  showCursor: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    filled: true,
+                    prefixIcon: Icon(
+                      Icons.person_outline,
+                      color: mainGreen,
+                      size: defaultIconSize,
+                    ),
+                    fillColor: lighterGreen,
+                    hintStyle: TextStyle(
+                      color: mainGreen,
+                      fontFamily: defaultFontFamily,
+                      fontSize: 16,
+                    ),
+                    hintText: "Username",
+                  ),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: defaultFontFamily,
+                    fontSize: 16,
+                    height: 1,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 TextField(
                   controller: _email,
@@ -147,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 TextButton(
                   child: Text(
-                    "Je n'ai pas de compte",
+                    "J'ai deja un compte",
                     style: TextStyle(
                       color: mainGreen,
                       fontFamily: defaultFontFamily,
@@ -155,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/Singup');
+                    Navigator.pushNamed(context, '/Login');
                   },
                 ),
                 SizedBox(
@@ -178,7 +213,9 @@ class _LoginPageState extends State<LoginPage> {
                           MaterialStateProperty.all<Color>(mainGreen),
                     ),
                     onPressed: () {
-                      if (_email.text == "" || _password.text == "") {
+                      if (_email.text == "" ||
+                          _password.text == "" ||
+                          _username.text == "") {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -233,57 +270,48 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         );
                       } else {
-                        final Future<Map<String, dynamic>> result = auth.login(
-                            _email.text.toString(), _password.text.toString());
+                        final Future<Map<String, dynamic>> result =
+                            auth.register(
+                                _email.text.toString(),
+                                _password.text.toString(),
+                                _username.text.toString());
                         result.then((response) {
                           if (response['status']) {
-                            user = response['user'];
-                            Provider.of<UserProvider>(context, listen: false)
-                                .setUser(user);
-                            if (user.role == UserRoleEnum.seller) {
-                              setState(() {
-                                Navigator.pushNamed(
-                                    context, '/ProductList_Seller');
-                              });
-                            } else if (user.role == UserRoleEnum.buyer) {
-                              setState(() {
-                                Navigator.pushNamed(
-                                    context, '/ProductList_Client');
-                              });
-                            }
+                            setState(() {
+                              Navigator.pushNamed(context, '/Login');
+                            });
                           } else {
                             showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Erreur",
-                                      style: TextStyle(
-                                          color: mainGreen,
-                                          fontFamily: defaultFontFamily,
-                                          fontSize: 20)),
-                                  content: Text(
-                                      "the email and password that you entered do not match our records. Please try again"),
-                                  actions: [
-                                    TextButton(
-                                      child: Text("OK",
-                                          style: TextStyle(
-                                              color: mainGreen,
-                                              fontFamily: defaultFontFamily,
-                                              fontSize: 16)),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              }
-                            );
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Erreur",
+                                        style: TextStyle(
+                                            color: mainGreen,
+                                            fontFamily: defaultFontFamily,
+                                            fontSize: 20)),
+                                    content: Text(
+                                        "the email and password that you entered do not match our records. Please try again"),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("OK",
+                                            style: TextStyle(
+                                                color: mainGreen,
+                                                fontFamily: defaultFontFamily,
+                                                fontSize: 16)),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                });
                           }
                         });
                       }
                     },
                     child: Text(
-                      "Se Connecter",
+                      "S'inscrire",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
