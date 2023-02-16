@@ -1,8 +1,5 @@
 import 'dart:convert';
 import 'package:chajrti/Models/Client.dart';
-
-import 'package:chajrti/Models/Client.dart';
-
 List<Plant> plantFromJson(String str) =>
     List<Plant>.from(json.decode(str).map((x) => Plant.fromJson(x)));
 
@@ -12,7 +9,7 @@ String plantToJson(List<Plant> data) =>
 class Plant {
   late int id;
   late String name;
-  late String? image;
+  late String image;
   late String description;
   late int price;
   late Client client;
@@ -20,7 +17,7 @@ class Plant {
   Plant(
       {required this.id,
       required this.name,
-      this.image,
+      required this.image,
       required this.description,
       required this.price,
       required this.client});
@@ -31,7 +28,7 @@ class Plant {
       image: json["image"],
       description: json["description"],
       price: json["price"],
-      client: json["client"]);
+      client: Client.fromJson(json["client"]));
 
   Map<String, dynamic> toJson() => {
         "id": id,

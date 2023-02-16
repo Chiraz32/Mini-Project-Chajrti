@@ -11,13 +11,13 @@ import 'package:jwt_decode/jwt_decode.dart';
 
 class UserProvider with ChangeNotifier {
   Client _user = Client(
-    id: 0,
-    email: "",
-    name: "",
-    mdp: "",
-    salt: "",
-    role: UserRoleEnum.admin,
-  );
+      id: 0,
+      email: "",
+      name: "",
+      mdp: "",
+      salt: "",
+      role: UserRoleEnum.admin,
+      token: "");
   String loggedInStatus = "";
 
   Client get user => _user;
@@ -38,9 +38,10 @@ class UserProvider with ChangeNotifier {
         headers: {'Content-Type': 'application/json'});
     if (response.statusCode == 201) {
       final Map<String, dynamic> responseData = json.decode(response.body);
-      debugPrint(responseData.toString());
       var token = responseData['accessToken'];
       Map<String, dynamic> payload = Jwt.parseJwt(token);
+      payload.addAll({'token':token});
+      debugPrint(payload.toString());
       Client authUser = Client.fromJson(payload);
       loggedInStatus = "LoggedIn";
       notifyListeners();

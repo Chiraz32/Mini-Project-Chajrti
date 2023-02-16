@@ -20,30 +20,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (ctx) => UserProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (ctx) => FavoriteProvider(),
-          ),
-        ],
-        child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            initialRoute: '/ProfileEdit',
-            routes: {
-              '/Login': (context) => const LoginPage(),
-              '/ProductList_Client': (context) => const PlantList_Client(),
-              '/OrdersList_Client': (context) => const OrdersList_Client(),
-              '/ProfileEdit': (context) => const EditProfile(),
-              '/ProductList_Seller': (context) => const PlantList_Seller(),
-              '/OrdersList_Seller': (context) => const OrdersList_Seller(),
-              '/AddPlant_Seller': (context) => const AddPlant_Seller(),
-              '/FavouriteList_Client': (context) => const FavouriteList(),
-              '/PlantDetail_Client': (context) => PlantDetail(index: 2)
-            },
-            title: 'Chajrti'
-        )
-      );
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => FavoriteProvider(),
+        ),
+      ],
+      child:MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/Login',
+
+        routes: {
+          '/Login': (context) => const LoginPage(),
+          '/ProductList_Client': (context) => const PlantList_Client(),
+          '/OrdersList_Client': (context) => const OrdersList_Client(),
+          '/ProfileEdit': (context) => const EditProfile(),
+          '/ProductList_Seller': (context) => const PlantList_Seller(),
+          '/OrdersList_Seller': (context) => const OrdersList_Seller(),
+          '/AddPlant_Seller': (context) => const AddPlant_Seller(),
+          '/FavouriteList_Client': (context) => const FavouriteList(),
+          '/PlantDetail_Client': (context) => PlantDetail(index: 2)
+        },
+        title: 'Chajrti')
+    );
   }
 }

@@ -1,23 +1,28 @@
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Providers/favoris_provider.dart';
+import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Widgets/Button.dart';
+import 'package:chajrti/Widgets/gridTilesPlants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+// import 'dart:ui';
 import 'package:provider/provider.dart';
 
-class PlantDetail extends StatefulWidget {
+class PlantDetailSeller extends StatefulWidget {
   int index;
-  PlantDetail({super.key, required this.index});
+  PlantDetailSeller({super.key, required this.index});
 
   @override
-  State<PlantDetail> createState() => _PlantDetailState();
+  State<PlantDetailSeller> createState() => _PlantDetailSellerState();
 }
 
-class _PlantDetailState extends State<PlantDetail> {
+class _PlantDetailSellerState extends State<PlantDetailSeller> {
   @override
   Widget build(BuildContext context) {
     var plants = context.watch<FavoriteProvider>().myPlants;
     var favs = context.watch<FavoriteProvider>().myFav;
-    var newImage = (plants[widget.index].image != null)?plants[widget.index].image: "assets/defaultImage.jpg";
+    var newImage = plants[widget.index].image ?? "assets/defaultImage.jpg";
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
@@ -33,21 +38,18 @@ class _PlantDetailState extends State<PlantDetail> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              width: 270,
               child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: EdgeInsets.only(left: 20),
                   child: Text(
                     plants[widget.index].name,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w400,
-                        color: Colors.black
-                    ),
-                  )
-              ),
+                        color: Colors.black),
+                  )),
+              width: 270,
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 15),
               child: IconButton(
                 onPressed: () {
                   if (!favs.contains(plants[widget.index])) {
@@ -66,10 +68,11 @@ class _PlantDetailState extends State<PlantDetail> {
                     : const Icon(Icons.favorite_outline,
                         color: Colors.black, size: 40),
               ),
+              padding: EdgeInsets.only(right: 15),
             ),
           ],
         ),
-        const Padding(
+        Padding(
             padding: EdgeInsets.only(top: 5),
             child: Divider(
               color: Color.fromARGB(161, 98, 98, 98),
@@ -77,7 +80,7 @@ class _PlantDetailState extends State<PlantDetail> {
               indent: 20,
               endIndent: 20,
             )),
-        const Padding(
+        Padding(
             padding: EdgeInsets.only(left: 30),
             child: SizedBox(
                 width: double.infinity,
@@ -90,19 +93,19 @@ class _PlantDetailState extends State<PlantDetail> {
                   textAlign: TextAlign.left,
                 ))),
         Padding(
-          padding: const EdgeInsets.only(left: 30, top: 8),
+          padding: EdgeInsets.only(left: 30, top: 8),
           child: SizedBox(
               width: double.infinity,
               child: Text(
                 plants[widget.index].description,
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w300,
                     color: Colors.black),
                 textAlign: TextAlign.left,
               )),
         ),
-        const Padding(
+        Padding(
             padding: EdgeInsets.only(top: 15),
             child: Divider(
               color: Color.fromARGB(161, 98, 98, 98),
@@ -115,12 +118,12 @@ class _PlantDetailState extends State<PlantDetail> {
           children: [
             Container(
               child: Padding(
-                  padding: const EdgeInsets.only(left: 50),
+                  padding: EdgeInsets.only(left: 50),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 7),
+                        padding: EdgeInsets.only(bottom: 7),
                         child: Text('Prix:',
                             style: TextStyle(
                                 fontSize: 20,
@@ -128,7 +131,7 @@ class _PlantDetailState extends State<PlantDetail> {
                                 color: darkGrey)),
                       ),
                       Text(plants[widget.index].price.toString() + " DT",
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w500,
                               color: Colors.black)),
@@ -136,16 +139,16 @@ class _PlantDetailState extends State<PlantDetail> {
                   )),
             ),
             Padding(
-                padding: const EdgeInsets.only(right: 30),
+                padding: EdgeInsets.only(right: 30),
                 child: ElevatedButton(
                     style: button,
                     onPressed: () {
                       setState(() {
-                        Navigator.pushNamed(context, '/OrdersList_Client');
+                        Navigator.pushNamed(context, '/ProductList_Seller');
                       });
                     },
-                    child: const Text(
-                      'Commander',
+                    child: Text(
+                      'supprimer',
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                     )))

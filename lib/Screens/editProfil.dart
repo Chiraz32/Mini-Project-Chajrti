@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields
-
-// import 'dart:html';
-
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Models/Client.dart' as client;
+import 'package:chajrti/Models/Client.dart';
+import 'package:chajrti/enum/user_role_enum.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 // import 'package:image_picker/image_picker.dart';
@@ -24,10 +22,25 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    
+    var user = Client(
+        id: 1,
+        name: "Idris",
+        email: "test@test.t",
+        image: "idrisphoto.jpg",
+        role: UserRoleEnum.buyer,
+        mdp: '',
+        salt: '',
+        token:''
+    );
+
+
+    
+
     String defaultFontFamily = 'Roboto-Light.ttf';
     double defaultIconSize = 20;
     UserProvider? auth = Provider.of<UserProvider>(context);
-    client.Client user = auth.user;
+    //client.Client user = auth.user;
     final Future<Map<String, dynamic>> result =
         auth.getInfo(auth.user.id, auth.token);
     result.then((response) {

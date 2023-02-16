@@ -30,10 +30,11 @@ class _OrdersList_SellerState extends State<OrdersList_Seller> {
         body: ListView.builder(
           itemCount: orders.length -1,
           itemBuilder: ((context, ind) {
-            return OrderCard(image: orders[ind].plant.image!,
+            return OrderCard(image: orders[ind].plant.image,
              price: orders[ind].plant.price, 
              plant: orders[ind].plant.name, 
-             ClientId: orders[ind].client.toString());
+             ClientId: orders[ind].client.toString()
+            );
           }),
         )
         ,

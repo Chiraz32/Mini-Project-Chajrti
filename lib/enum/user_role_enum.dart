@@ -1,5 +1,5 @@
 enum UserRoleEnum {
   admin,
-  buyer ,
-  seller 
+  buyer,
+  seller
 }
