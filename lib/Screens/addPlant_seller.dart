@@ -1,10 +1,14 @@
 import 'package:chajrti/Constants/constants.dart';
+import 'package:chajrti/Providers/favoris_provider.dart';
+import 'package:chajrti/Providers/user_provider.dart';
 import 'package:chajrti/Widgets/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 import '../Providers/favoris_provider.dart';
 import '../Providers/user_provider.dart';
+
 
 class AddPlant_Seller extends StatefulWidget {
   const AddPlant_Seller({super.key});
@@ -15,9 +19,9 @@ class AddPlant_Seller extends StatefulWidget {
 }
 
 class _AddPlant_SellerState extends State<AddPlant_Seller> {
-  TextEditingController _name = new TextEditingController();
-  TextEditingController _price = new TextEditingController();
-  TextEditingController _description = new TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _price = TextEditingController();
+  final TextEditingController _description = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<FavoriteProvider>(context);
@@ -58,7 +62,9 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
                       ),
+
                       hintText: "Nom de la plante",
+
                     ),
                   ),
                 ),
@@ -130,10 +136,14 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
                               _description.text.toString(),
                               int.parse(_price.text).toString(),
                               auth.user.token);
+
                           debugPrint("clicked");
+
                         }))),
                 SizedBox(height: 15)
               ],
             )));
   }
 }
+
+
