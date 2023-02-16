@@ -6,7 +6,7 @@ import 'package:chajrti/Widgets/gridTilesPlants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-// import 'dart:ui';
+import 'dart:ui';
 import 'package:provider/provider.dart';
 
 class PlantDetailSeller extends StatefulWidget {
@@ -22,7 +22,7 @@ class _PlantDetailSellerState extends State<PlantDetailSeller> {
   Widget build(BuildContext context) {
     var plants = context.watch<FavoriteProvider>().myPlants;
     var favs = context.watch<FavoriteProvider>().myFav;
-    var newImage = plants[widget.index].image ?? "assets/defaultImage.jpg";
+    var newImage = plants[widget.index].image;
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
