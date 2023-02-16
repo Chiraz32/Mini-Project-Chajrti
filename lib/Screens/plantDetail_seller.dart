@@ -22,7 +22,7 @@ class _PlantDetailSellerState extends State<PlantDetailSeller> {
   Widget build(BuildContext context) {
     var plants = context.watch<FavoriteProvider>().myPlants;
     var favs = context.watch<FavoriteProvider>().myFav;
-    var newImage = plants[widget.index].image ?? "assets/defaultImage.jpg";
+    var newImage = plants[widget.index].image ;//?? "assets/defaultImage.jpg";
     return Scaffold(
       appBar: AppBar(
           elevation: 0,

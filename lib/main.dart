@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       ],
       child:MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/Login',
+        initialRoute: '/ProfileEdit',
 
         routes: {
           '/Login': (context) => const LoginPage(),
