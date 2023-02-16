@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:chajrti/Models/Client.dart';
+import 'package:chajrti/enum/user_role_enum.dart';
+
 List<Plant> plantFromJson(String str) =>
     List<Plant>.from(json.decode(str).map((x) => Plant.fromJson(x)));
 
@@ -12,7 +14,7 @@ class Plant {
   late String image;
   late String description;
   late int price;
-  Client client;
+  Client? client;
 
   Plant(
       {required this.id,
@@ -20,7 +22,7 @@ class Plant {
       required this.image,
       required this.description,
       required this.price,
-      required this.client});
+      this.client});
 
   factory Plant.fromJson(Map<String, dynamic> json) => Plant(
       id: json["id"],
@@ -28,7 +30,9 @@ class Plant {
       image: json["image"],
       description: json["description"],
       price: json["price"],
-      client: Client.fromJson(json["client"]));
+      client: Client.fromJson(json["client"]?? {"id": 0, "name": "", "email": "@gmail.com", "mdp": "8WNOC", "salt": "2b", "image": "default.png", "phoneNumber": 0, "role": "buyer"})
+      //Client.fromJson(json["client"])??new Client(id: 0, email: "email", name: "name", mdp: "mdp", salt: "salt", role: UserRoleEnum.admin, token: "token"));
+      );
 
   Map<String, dynamic> toJson() => {
         "id": id,

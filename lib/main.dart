@@ -1,5 +1,6 @@
 import 'package:chajrti/Providers/favoris_provider.dart';
 import 'package:chajrti/Providers/user_provider.dart';
+import 'package:chajrti/Providers/order_provider.dart';
 import 'package:chajrti/Screens/addPlant_seller.dart';
 import 'package:chajrti/Screens/editProfil.dart';
 import 'package:chajrti/Screens/listPlant_client.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (ctx) => FavoriteProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => OrderProvider(),
         ),
       ],
       child:MaterialApp(

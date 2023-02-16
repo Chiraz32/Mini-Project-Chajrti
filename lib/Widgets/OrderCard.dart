@@ -17,6 +17,12 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (image.isEmpty == true) {
+      image = "assets/defaultImage.jpg";
+    } else {
+      image = "assets/" + image;
+    }
+    debugPrint("image" + image );
     return Row(children: [
       SizedBox(width: 5),
       Card(
@@ -41,32 +47,32 @@ class OrderCard extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Text("Plante : $plant",
                     style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        leadingDistribution: TextLeadingDistribution.even,),
-                       textAlign: TextAlign.center)),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      leadingDistribution: TextLeadingDistribution.even,
+                    ),
+                    textAlign: TextAlign.center)),
             Text("Prix : $price dt",
                 style:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                     textAlign: TextAlign.center),
+                textAlign: TextAlign.center),
             Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: Text("Plante : $ClientId",
+                child: Text("Client : $ClientId",
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w500),
-                         textAlign: TextAlign.center)),
+                    textAlign: TextAlign.center)),
           ],
         ),
       ),
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           IconButton(
               onPressed: () {},
               icon:
-                  Icon(Icons.check_circle_outline, color: mainGreen, size:30)),
+                  Icon(Icons.check_circle_outline, color: mainGreen, size: 30)),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
             child: IconButton(

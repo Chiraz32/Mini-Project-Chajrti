@@ -21,7 +21,7 @@ class _OrdersList_ClientState extends State<OrdersList_Client> {
   @override
   Widget build(BuildContext context) {
     final List<Order> ordersList = orders;
-    orderProvider ord = Provider.of<orderProvider>(context);
+    OrderProvider ord = Provider.of<OrderProvider>(context);
     UserProvider auth = Provider.of<UserProvider>(context);
     return Scaffold(
         appBar: AppBar(
