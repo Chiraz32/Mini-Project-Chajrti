@@ -15,7 +15,7 @@ class Client {
   late String? image;
   late String mdp;
   late String salt;
-  late int? phone;
+  late String phoneNumber;
   late UserRoleEnum role;
   String token;
 
@@ -26,7 +26,7 @@ class Client {
     required this.mdp,
     required this.salt,
     required this.role,
-    this.phone,
+    required this.phoneNumber,
     this.image,
     required this.token
   });
@@ -38,7 +38,7 @@ class Client {
         image: json["image"] ?? "default.png",
         mdp: json["mdp"] ?? "",
         salt: json["salt"] ?? "",
-        phone: json["phone"],
+        phoneNumber: json["phoneNumber"]?? "" ,
         role:json["role"] == "buyer" ? UserRoleEnum.buyer : UserRoleEnum.seller,
         token: json["token"]??""
       );
@@ -50,7 +50,7 @@ class Client {
         "image": image,
         "mdp": mdp,
         "salt": salt,
-        "phone": phone,
+        "phoneNumber": phoneNumber,
         "role": role,
         "token": token
       };

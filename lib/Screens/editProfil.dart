@@ -22,20 +22,10 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    var user = Client(
-        id: 1,
-        name: "Idris",
-        email: "test@test.t",
-        image: "idrisphoto.jpg",
-        role: UserRoleEnum.buyer,
-        mdp: '',
-        salt: '',
-        token: '');
-
     String defaultFontFamily = 'Roboto-Light.ttf';
     double defaultIconSize = 20;
     UserProvider? auth = Provider.of<UserProvider>(context);
-    //client.Client user = auth.user;
+    client.Client user = auth.user;
     final Future<Map<String, dynamic>> result =
         auth.getInfo(auth.user.id, auth.token);
     result.then((response) {
@@ -196,7 +186,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               TextField(
                 controller: _name = TextEditingController(text: user.name),
-                onChanged: ((x) => {_name.text = x}),
+                onChanged: ((x) => {_name.text = x, user.name = x}),
                 showCursor: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -232,7 +222,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               TextField(
                 controller: _email = TextEditingController(text: user.email),
-                onChanged: ((x) => {_email.text = x}),
+                onChanged: ((x) => {_email.text = x, user.email = x}),
                 showCursor: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -268,8 +258,8 @@ class _EditProfileState extends State<EditProfile> {
               ),
               TextField(
                 controller: _phone =
-                    TextEditingController(text: "${user.phone ?? ""}"),
-                onChanged: ((x) => {_phone.text = x}),
+                    TextEditingController(text: "${user.phoneNumber}"),
+                onChanged: ((x) => {_phone.text = x, user.phoneNumber = x}),
                 showCursor: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -405,7 +395,7 @@ class _EditProfileState extends State<EditProfile> {
                         "phone": _phone.text,
                       };
                       final Future<Map<String, dynamic>> editSave =
-                          auth.updateInfo(auth.user.id, data, auth.token);
+                          auth.updateInfo(auth.user.id, data, user.token);
                       editSave.then((response) {
                         if (response["status"]) {
                           Navigator.push(
@@ -512,13 +502,11 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                  )
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ]
-            ),
+                  )),
+              SizedBox(
+                height: 10,
+              ),
+            ]),
           ],
         ),
       ),

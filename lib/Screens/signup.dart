@@ -17,6 +17,7 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController _email = new TextEditingController();
   TextEditingController _password = new TextEditingController();
   TextEditingController _username = new TextEditingController();
+  TextEditingController _phone = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,9 @@ class _SignupPageState extends State<SignupPage> {
                   alignment: Alignment.center,
                   child: Image.asset("assets/connexionImage.png"),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
                   "Creer un compte",
                   style: TextStyle(
@@ -54,7 +58,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 20,
                 ),
                 TextField(
                   controller: _username,
@@ -80,6 +84,41 @@ class _SignupPageState extends State<SignupPage> {
                       fontSize: 16,
                     ),
                     hintText: "Username",
+                  ),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: defaultFontFamily,
+                    fontSize: 16,
+                    height: 1,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  controller: _phone,
+                  showCursor: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    filled: true,
+                    prefixIcon: Icon(
+                      Icons.phone_android,
+                      color: mainGreen,
+                      size: defaultIconSize,
+                    ),
+                    fillColor: lighterGreen,
+                    hintStyle: TextStyle(
+                      color: mainGreen,
+                      fontFamily: defaultFontFamily,
+                      fontSize: 16,
+                    ),
+                    hintText: "Phone Number",
                   ),
                   style: TextStyle(
                     color: Colors.black,
@@ -215,7 +254,8 @@ class _SignupPageState extends State<SignupPage> {
                     onPressed: () {
                       if (_email.text == "" ||
                           _password.text == "" ||
-                          _username.text == "") {
+                          _username.text == "" ||
+                          _phone.text == "") {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -269,13 +309,41 @@ class _SignupPageState extends State<SignupPage> {
                             );
                           },
                         );
+                      } else if (_phone.text != "" && _phone.text.length != 8) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Erreur",
+                                  style: TextStyle(
+                                      color: mainGreen,
+                                      fontFamily: defaultFontFamily,
+                                      fontSize: 20)),
+                              content: Text("Numéro de téléphone non valid"),
+                              actions: [
+                                TextButton(
+                                  child: Text("OK",
+                                      style: TextStyle(
+                                          color: mainGreen,
+                                          fontFamily: defaultFontFamily,
+                                          fontSize: 16)),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       } else {
                         final Future<Map<String, dynamic>> result =
                             auth.register(
                                 _email.text.toString(),
                                 _password.text.toString(),
-                                _username.text.toString());
+                                _username.text.toString(),
+                                _phone.text.toString());
                         result.then((response) {
+                          debugPrint(response.toString());
                           if (response['status']) {
                             setState(() {
                               Navigator.pushNamed(context, '/Login');

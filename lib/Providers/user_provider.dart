@@ -16,6 +16,7 @@ class UserProvider with ChangeNotifier {
       name: "",
       mdp: "",
       salt: "",
+      phoneNumber: "",
       role: UserRoleEnum.admin,
       token: "");
   String loggedInStatus = "";
@@ -32,20 +33,22 @@ class UserProvider with ChangeNotifier {
     Map<String, dynamic> result;
     Map data = {'email': email, 'mdp': mdp};
     loggedInStatus = "Authenticating";
-    final response = await http.post(
-        Uri.http(ApiUrls.baseURL, ApiUrls.login),
-        body: json.encode(data),
-        headers: {'Content-Type': 'application/json'});
+    final response = await http.post(Uri.http(ApiUrls.baseURL, ApiUrls.login),
+        body: json.encode(data), headers: {'Content-Type': 'application/json'});
     if (response.statusCode == 201) {
       final Map<String, dynamic> responseData = json.decode(response.body);
       var token = responseData['accessToken'];
       Map<String, dynamic> payload = Jwt.parseJwt(token);
-      payload.addAll({'token':token});
-      debugPrint(payload.toString());
+      payload.addAll({'token': token});
       Client authUser = Client.fromJson(payload);
       loggedInStatus = "LoggedIn";
       notifyListeners();
-      result = {'status': true, 'message': 'successful', 'user': authUser, 'token': token};
+      result = {
+        'status': true,
+        'message': 'successful',
+        'user': authUser,
+        'token': token
+      };
     } else {
       loggedInStatus = "NotLoggedIn";
       notifyListeners();
@@ -57,15 +60,19 @@ class UserProvider with ChangeNotifier {
     return result;
   }
 
-  Future<Map<String, dynamic>> register(String email, String mdp, String username) async {
+  Future<Map<String, dynamic>> register(
+      String email, String mdp, String username, String phone) async {
     Map<String, dynamic> result;
-    Map data = {'email': email, 'mdp': mdp, 'name': username};
+    Map data = {
+      'email': email,
+      'mdp': mdp,
+      'name': username,
+      'phoneNumber': phone
+    };
     loggedInStatus = "Authenticating";
-    final response = await http.post(
-        Uri.http(ApiUrls.baseURL, ApiUrls.inscrit),
-        body: json.encode(data),
-        headers: {'Content-Type': 'application/json'});
-    if (response.statusCode == 200) {
+    final response = await http.post(Uri.http(ApiUrls.baseURL, ApiUrls.inscrit),
+        body: json.encode(data), headers: {'Content-Type': 'application/json'});
+    if (response.statusCode == 201) {
       final Map<String, dynamic> responseData = json.decode(response.body);
       Client authUser = Client.fromJson(responseData);
       result = {'status': true, 'message': 'successful', 'user': authUser};
@@ -77,7 +84,6 @@ class UserProvider with ChangeNotifier {
     }
     return result;
   }
-
 
   Future<Map<String, dynamic>> getInfo(int id, String? token) async {
     final response = await http.get(
@@ -99,18 +105,23 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  Future<Map<String, dynamic>> updateInfo(int id,Map data, String? token) async {
+  Future<Map<String, dynamic>> updateInfo(
+      int id, Map data, String? token) async {
     final response = await http.patch(
-      Uri.http(ApiUrls.baseURL,'/client/update/$id'),
+      Uri.http(ApiUrls.baseURL, '/client/update/$id'),
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
     );
+    debugPrint("data elli tpe3thet : " + data.toString());
+    debugPrint("data elli rajj3et : " + response.toString());
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
+      debugPrint("Response data : " + responseData.toString());
       Client authUser = Client.fromJson(responseData);
+      debugPrint("phone fil response : " + authUser.phoneNumber.toString());
       return {'status': true, 'message': 'successful', 'user': authUser};
     } else {
       return {
@@ -119,7 +130,6 @@ class UserProvider with ChangeNotifier {
       };
     }
   }
-
 
   // Future<Map<String, dynamic>?> uploadProfileImaje(int id,File image, String? token) async {
   //   final response = await http.patch(
@@ -141,6 +151,4 @@ class UserProvider with ChangeNotifier {
   //     };
   //   }
   // }
-
-  
 }
