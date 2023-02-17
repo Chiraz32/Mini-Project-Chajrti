@@ -20,6 +20,12 @@ class OrderCardClient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (image.isEmpty == true) {
+      image = "assets/defaultImage.jpg";
+    } else {
+      image = "assets/" + image;
+    }
+    debugPrint("image" + image );
     return Row(children: [
       const SizedBox(width: 5),
       Card(

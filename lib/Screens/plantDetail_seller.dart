@@ -20,9 +20,15 @@ class PlantDetailSeller extends StatefulWidget {
 class _PlantDetailSellerState extends State<PlantDetailSeller> {
   @override
   Widget build(BuildContext context) {
+    String image;
     var plants = context.watch<FavoriteProvider>().myPlants;
     var favs = context.watch<FavoriteProvider>().myFav;
-    var newImage = plants[widget.index].image ?? "assets/defaultImage.jpg";
+    if (plants[widget.index].image.isEmpty == true) {
+      image = "assets/defaultImage.jpg";
+    } else {
+      image = "assets/" + plants[widget.index].image;
+    }
+    var newImage = image ;
     return Scaffold(
       appBar: AppBar(
           elevation: 0,

@@ -4,8 +4,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class BottomBar extends StatefulWidget {
-  bool? isClient;
-  BottomBar({super.key, required bool isClient});
+  bool isClient;
+  BottomBar({super.key, required this.isClient});
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -18,6 +18,7 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("isClient value ${widget.isClient}");
     return Container(
         alignment: Alignment.center,
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

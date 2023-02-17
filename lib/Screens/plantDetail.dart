@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 class PlantDetail extends StatefulWidget {
   int index;
+  
   PlantDetail({super.key, required this.index});
 
   @override
@@ -20,9 +21,15 @@ class PlantDetail extends StatefulWidget {
 class _PlantDetailState extends State<PlantDetail> {
   @override
   Widget build(BuildContext context) {
+    String image;
     var plants = context.watch<FavoriteProvider>().myPlants;
     var favs = context.watch<FavoriteProvider>().myFav;
-    var newImage = plants[widget.index].image ?? "assets/defaultImage.jpg";
+    if (plants[widget.index].image.isEmpty == true) {
+      image = "assets/defaultImage.jpg";
+    } else {
+      image = "assets/" + plants[widget.index].image;
+    }
+    var newImage =  image;
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
