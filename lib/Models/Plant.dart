@@ -14,7 +14,7 @@ class Plant {
   late String image;
   late String description;
   late int price;
-  Client? client;
+  late Client client;
 
   Plant(
       {required this.id,
@@ -22,7 +22,7 @@ class Plant {
       required this.image,
       required this.description,
       required this.price,
-      this.client});
+       required this.client});
 
   factory Plant.fromJson(Map<String, dynamic> json) => Plant(
       id: json["id"],
@@ -31,7 +31,7 @@ class Plant {
       description: json["description"],
       price: json["price"],
       client: Client.fromJson(json["client"]?? {"id": 0, "name": "", "email": "@gmail.com", "mdp": "8WNOC", "salt": "2b", "image": "default.png", "phoneNumber": 0, "role": "buyer"})
-      //Client.fromJson(json["client"])??new Client(id: 0, email: "email", name: "name", mdp: "mdp", salt: "salt", role: UserRoleEnum.admin, token: "token"));
+      
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,6 +40,6 @@ class Plant {
         "image": image,
         "description": description,
         "price": price,
-        "client": client
+        "client": client.toJson()
       };
 }

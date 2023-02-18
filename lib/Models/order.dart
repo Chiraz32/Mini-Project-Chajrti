@@ -12,7 +12,7 @@ String orderToJson(List<Order> data) =>
 
 class Order {
   late int id;
-  late String state;
+  late OrderStateEnum state;
   late Client client;
   late Plant plant;
 
@@ -26,7 +26,7 @@ class Order {
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
       id: json["id"],
-      state: json["state"],
+      state: json["state"] == "accepted" ? OrderStateEnum.accepted : json["state"] == "refused" ?OrderStateEnum.refused :OrderStateEnum.Pending,
       client : Client.fromJson(json["client"]),
       plant: Plant.fromJson(json["plant"]),
       );
@@ -34,8 +34,8 @@ class Order {
   Map<String, dynamic> toJson() => {
         "id": id,
         "state": state,
-        "client": client,
-        "plant": plant,
+        "client": client.toJson() ,
+        "plant": plant.toJson(),
       };
 }
 

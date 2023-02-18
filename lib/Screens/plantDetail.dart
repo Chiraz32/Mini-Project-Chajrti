@@ -1,5 +1,7 @@
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Providers/favoris_provider.dart';
+import 'package:chajrti/Providers/order_provider.dart';
+import 'package:chajrti/Providers/user_provider.dart';
 import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Widgets/Button.dart';
 import 'package:chajrti/Widgets/gridTilesPlants.dart';
@@ -19,15 +21,18 @@ class PlantDetail extends StatefulWidget {
 }
 
 class _PlantDetailState extends State<PlantDetail> {
+   
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<OrderProvider>(context);
+    final UserProvider auth = Provider.of<UserProvider>(context);
     String image;
     var plants = context.watch<FavoriteProvider>().myPlants;
     var favs = context.watch<FavoriteProvider>().myFav;
     if (plants[widget.index].image.isEmpty == true) {
       image = "assets/defaultImage.jpg";
     } else {
-      image = "assets/" + plants[widget.index].image;
+      image = "assets/${plants[widget.index].image}";
     }
     var newImage =  image;
     return Scaffold(
@@ -44,12 +49,13 @@ class _PlantDetailState extends State<PlantDetail> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
+            SizedBox(
+              // ignore: sort_child_properties_last
               child: Padding(
-                  padding: EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 20),
                   child: Text(
                     plants[widget.index].name,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
@@ -57,6 +63,7 @@ class _PlantDetailState extends State<PlantDetail> {
               width: 270,
             ),
             Padding(
+              // ignore: sort_child_properties_last
               child: IconButton(
                 onPressed: () {
                   if (!favs.contains(plants[widget.index])) {
@@ -75,11 +82,11 @@ class _PlantDetailState extends State<PlantDetail> {
                     : const Icon(Icons.favorite_outline,
                         color: Colors.black, size: 40),
               ),
-              padding: EdgeInsets.only(right: 15),
+              padding: const EdgeInsets.only(right: 15),
             ),
           ],
         ),
-        Padding(
+        const Padding(
             padding: EdgeInsets.only(top: 5),
             child: Divider(
               color: Color.fromARGB(161, 98, 98, 98),
@@ -87,7 +94,7 @@ class _PlantDetailState extends State<PlantDetail> {
               indent: 20,
               endIndent: 20,
             )),
-        Padding(
+        const Padding(
             padding: EdgeInsets.only(left: 30),
             child: SizedBox(
                 width: double.infinity,
@@ -100,19 +107,19 @@ class _PlantDetailState extends State<PlantDetail> {
                   textAlign: TextAlign.left,
                 ))),
         Padding(
-          padding: EdgeInsets.only(left: 30, top: 8),
+          padding: const EdgeInsets.only(left: 30, top: 8),
           child: SizedBox(
               width: double.infinity,
               child: Text(
                 plants[widget.index].description,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w300,
                     color: Colors.black),
                 textAlign: TextAlign.left,
               )),
         ),
-        Padding(
+        const Padding(
             padding: EdgeInsets.only(top: 15),
             child: Divider(
               color: Color.fromARGB(161, 98, 98, 98),
@@ -123,38 +130,44 @@ class _PlantDetailState extends State<PlantDetail> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              child: Padding(
-                  padding: EdgeInsets.only(left: 50),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 7),
-                        child: Text('Prix:',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                                color: darkGrey)),
-                      ),
-                      Text(plants[widget.index].price.toString() + " DT",
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black)),
-                    ],
-                  )),
-            ),
             Padding(
-                padding: EdgeInsets.only(right: 30),
+                padding: const EdgeInsets.only(left: 50),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 7),
+                      child: Text('Prix:',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: darkGrey)),
+                    ),
+                    Text("${plants[widget.index].price} DT",
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black)),
+                  ],
+                )),
+            Padding(
+                padding: const EdgeInsets.only(right: 30),
                 child: ElevatedButton(
                     style: button,
                     onPressed: () {
                       setState(() {
+                         debugPrint( plants[widget.index].toJson().toString());
+                          provider.addOrder(
+                              context,
+                               plants[widget.index],
+                              auth.user.token);
+                          debugPrint("clicked");
+                        
+                        
                         Navigator.pushNamed(context, '/OrdersList_Client');
                       });
                     },
-                    child: Text(
+                    child: const Text(
                       'Commander',
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.w500),

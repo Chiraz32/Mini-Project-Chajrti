@@ -1,5 +1,5 @@
 import 'package:chajrti/Constants/constants.dart';
-import 'package:chajrti/Widgets/image_picker.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,9 +15,9 @@ class AddPlant_Seller extends StatefulWidget {
 }
 
 class _AddPlant_SellerState extends State<AddPlant_Seller> {
-  TextEditingController _name = new TextEditingController();
-  TextEditingController _price = new TextEditingController();
-  TextEditingController _description = new TextEditingController();
+  final TextEditingController _name =  TextEditingController();
+  final TextEditingController _price =  TextEditingController();
+  final TextEditingController _description = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<FavoriteProvider>(context);
@@ -25,7 +25,7 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
     return Scaffold(
         appBar: AppBar(
             elevation: 0,
-            backgroundColor: Color(0xffD8EAE1),
+            backgroundColor: const Color(0xffD8EAE1),
             leading: BackButton(color: Colors.grey.shade700)),
         body: Padding(
             padding: EdgeInsets.only(bottom: 10),

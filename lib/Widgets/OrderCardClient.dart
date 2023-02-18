@@ -1,4 +1,5 @@
 import 'package:chajrti/Constants/constants.dart';
+import 'package:chajrti/enum/order_state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -84,9 +85,9 @@ class OrderCardClient extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.only(left: 5, right: 5, bottom: 2),
                     decoration: BoxDecoration(
-                      color: state == "en attente" ? const Color.fromARGB(255, 253, 243, 191) : 
-                        state=="refusée" ? const Color.fromARGB(255, 218, 218, 218) 
-                        : const Color.fromARGB(255, 206, 253, 191),
+                      color: state == " Acceptée " ?const Color.fromARGB(255, 206, 253, 191): 
+                        state== " Refusée " ? const Color.fromARGB(255, 218, 218, 218) 
+                        : const Color.fromARGB(255, 253, 243, 191)  ,
                       borderRadius: const BorderRadius.all(Radius.circular(15.0)),
                     ),
                     child: Text(state,

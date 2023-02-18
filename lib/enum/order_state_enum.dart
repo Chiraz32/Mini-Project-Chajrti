@@ -1,5 +1,5 @@
 enum OrderStateEnum {
-  pending,
+  Pending,
   accepted ,
   refused 
 }

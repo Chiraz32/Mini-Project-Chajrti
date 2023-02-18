@@ -67,7 +67,7 @@ class FavoriteProvider with ChangeNotifier {
       "client": "",
     };
     final response = await http.post(
-      new Uri.http(ApiUrls.baseURL, ApiUrls.addPlant),
+       Uri.http(ApiUrls.baseURL, ApiUrls.addPlant),
       body: dataInput,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -76,8 +76,8 @@ class FavoriteProvider with ChangeNotifier {
       },
       encoding: Encoding.getByName("utf-8"),
     );
-    debugPrint("response is : " + response.body.toString());
-    debugPrint("response  code is : " + response.statusCode.toString());
+    debugPrint("response is : ${response.body}");
+    debugPrint("response  code is : ${response.statusCode}");
 
     if (response.statusCode == 201) {
       debugPrint(response.body);
@@ -87,45 +87,4 @@ class FavoriteProvider with ChangeNotifier {
     }
   }
 
-// upload image
-// Future<XFile?> image = ImagePicker.pickImage(source: ImageSource.gallery);
-// final Future<Map<String, dynamic>?> editImage =
-//     auth.uploadProfileImaje(auth.user.id, File(image!.path, image.name), auth.token);
-// editImage.then((response) {
-//   if (response["status"]) {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => EditProfile(),
-//       ),
-//     );
-//   } else {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: Text("Erreur",
-//               style: TextStyle(
-//                   color: mainGreen,
-//                   fontFamily: defaultFontFamily,
-//                   fontSize: 20)),
-//           content: Text(response["message"]),
-//           actions: [
-//             TextButton(
-//               child: Text("OK",
-//                   style: TextStyle(
-//                       color: mainGreen,
-//                       fontFamily: defaultFontFamily,
-//                       fontSize: 16)),
-//               onPressed: () {
-//                 Navigator.of(context).pop();
-//               },
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-// });
-//Navigator.of(context).pop();
 }
