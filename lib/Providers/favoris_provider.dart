@@ -87,45 +87,19 @@ class FavoriteProvider with ChangeNotifier {
     }
   }
 
-// upload image
-// Future<XFile?> image = ImagePicker.pickImage(source: ImageSource.gallery);
-// final Future<Map<String, dynamic>?> editImage =
-//     auth.uploadProfileImaje(auth.user.id, File(image!.path, image.name), auth.token);
-// editImage.then((response) {
-//   if (response["status"]) {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => EditProfile(),
-//       ),
-//     );
-//   } else {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: Text("Erreur",
-//               style: TextStyle(
-//                   color: mainGreen,
-//                   fontFamily: defaultFontFamily,
-//                   fontSize: 20)),
-//           content: Text(response["message"]),
-//           actions: [
-//             TextButton(
-//               child: Text("OK",
-//                   style: TextStyle(
-//                       color: mainGreen,
-//                       fontFamily: defaultFontFamily,
-//                       fontSize: 16)),
-//               onPressed: () {
-//                 Navigator.of(context).pop();
-//               },
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-// });
-//Navigator.of(context).pop();
+  Future deletePlant(int id,String token) async {
+    debugPrint("$id");
+    final res = await http
+        .delete(new Uri.http(ApiUrls.baseURL, ApiUrls.deletePlant + "$id"),headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    debugPrint(res.statusCode.toString());
+    // if (res.statusCode == 200) {
+    //     debugPrint("Deleted");
+    // } else {
+    //     throw "Sorry! Unable to delete this post.";
+    // }
+  }
 }

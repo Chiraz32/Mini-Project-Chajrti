@@ -1,5 +1,6 @@
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Providers/favoris_provider.dart';
+import 'package:chajrti/Providers/user_provider.dart';
 import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Widgets/Button.dart';
 import 'package:chajrti/Widgets/gridTilesPlants.dart';
@@ -11,7 +12,7 @@ import 'package:provider/provider.dart';
 
 class PlantDetail extends StatefulWidget {
   int index;
-  
+
   PlantDetail({super.key, required this.index});
 
   @override
@@ -29,7 +30,7 @@ class _PlantDetailState extends State<PlantDetail> {
     } else {
       image = "assets/" + plants[widget.index].image;
     }
-    var newImage =  image;
+    var newImage = image;
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
@@ -65,7 +66,7 @@ class _PlantDetailState extends State<PlantDetail> {
                         .addToList(plants[widget.index]);
                   } else {
                     context
-                       .read<FavoriteProvider>()
+                        .read<FavoriteProvider>()
                         .removeFromList(plants[widget.index]);
                   }
                 },

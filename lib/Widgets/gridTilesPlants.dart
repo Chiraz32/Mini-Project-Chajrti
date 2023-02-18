@@ -1,12 +1,13 @@
 import 'package:chajrti/Constants/constants.dart';
+import 'package:chajrti/Screens/plantDetail_seller.dart';
 import 'package:flutter/material.dart';
-
 import '../Screens/plantDetail.dart';
 
 class GridTilesPlants extends StatelessWidget {
   late String name;
   late String image;
   late String price;
+  late bool isClient;
   late int index;
 
   GridTilesPlants(
@@ -14,17 +15,17 @@ class GridTilesPlants extends StatelessWidget {
       required this.name,
       required this.image,
       required this.price,
+      required this.isClient,
       required this.index});
 
   @override
   Widget build(BuildContext context) {
     if (image == "") {
       image = "assets/defaultImage.jpg";
-    }
-    else{
+    } else {
       image = "assets/" + image;
     }
-    
+
     dynamic size = MediaQuery.of(context).size;
     double height = size.height;
     double width = size.width;
@@ -33,9 +34,15 @@ class GridTilesPlants extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => PlantDetail(
+              
+                builder:
+                 (context) => isClient == true ?PlantDetail(
                       index: index,
-                    )),
+                    )
+                    : PlantDetailSeller(
+                      index: index,
+                    )
+                    ),
           );
         }
         //plantDetail

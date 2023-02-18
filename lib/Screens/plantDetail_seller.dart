@@ -1,5 +1,7 @@
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Providers/favoris_provider.dart';
+import 'package:chajrti/Providers/order_provider.dart';
+import 'package:chajrti/Providers/user_provider.dart';
 import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Widgets/Button.dart';
 import 'package:chajrti/Widgets/gridTilesPlants.dart';
@@ -20,6 +22,8 @@ class PlantDetailSeller extends StatefulWidget {
 class _PlantDetailSellerState extends State<PlantDetailSeller> {
   @override
   Widget build(BuildContext context) {
+    FavoriteProvider provider = Provider.of<FavoriteProvider>(context);
+    UserProvider auth = Provider.of<UserProvider>(context);
     String image;
     var plants = context.watch<FavoriteProvider>().myPlants;
     var favs = context.watch<FavoriteProvider>().myFav;
@@ -147,9 +151,10 @@ class _PlantDetailSellerState extends State<PlantDetailSeller> {
             Padding(
                 padding: EdgeInsets.only(right: 30),
                 child: ElevatedButton(
-                    style: button,
+                    style: buttonSupp,
                     onPressed: () {
                       setState(() {
+                        provider.deletePlant(plants[widget.index].id,auth.user.token);
                         Navigator.pushNamed(context, '/ProductList_Seller');
                       });
                     },

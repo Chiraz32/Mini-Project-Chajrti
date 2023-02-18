@@ -5,6 +5,7 @@ class ApiUrls {
   static const String getOrders= "/order/all";
   static const String addPlant= "/plant/add";
   static const String uploadPlantImage= "/plant/upload";
+    static const String deletePlant= "/plant/delete/";
   
   // "${baseURL}client/login"
 }

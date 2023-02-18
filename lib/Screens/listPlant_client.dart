@@ -66,6 +66,7 @@ class _PlantsList_ClientState extends State<PlantList_Client> {
                       name: snapshot.data![index].name,
                       image: (snapshot.data![index].image),
                       price: snapshot.data![index].price.toString(),
+                      isClient: true,
                       index: index,
                     ));
                   }),

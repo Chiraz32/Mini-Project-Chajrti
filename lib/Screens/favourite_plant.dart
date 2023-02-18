@@ -51,6 +51,7 @@ class _FavouriteListState extends State<FavouriteList> {
               name: favs[index].name,
               image: favs[index].image,
               price: favs[index].price.toString(),
+              isClient: true,
               index: index,
             ));
           }),

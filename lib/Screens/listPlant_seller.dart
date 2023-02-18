@@ -63,6 +63,7 @@ class _PlantList_SellerState extends State<PlantList_Seller> {
                       name: snapshot.data![index].name,
                       image: snapshot.data![index].image,
                       price: snapshot.data![index].price.toString(),
+                      isClient: false,
                       index: index,
                     ));
                   }),
