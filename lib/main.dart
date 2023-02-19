@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: '/Singup',
+            initialRoute: '/Login',
             routes: {
               '/Login': (context) => const LoginPage(),
               '/Singup': (context) => const SignupPage(),

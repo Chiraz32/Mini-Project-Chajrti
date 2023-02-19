@@ -392,7 +392,7 @@ class _EditProfileState extends State<EditProfile> {
                       Map<String, dynamic> data = {
                         "name": _name.text,
                         "email": _email.text,
-                        "phone": _phone.text,
+                        "phoneNumber": _phone.text,
                       };
                       final Future<Map<String, dynamic>> editSave =
                           auth.updateInfo(auth.user.id, data, user.token);
