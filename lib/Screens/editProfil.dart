@@ -1,9 +1,14 @@
+// import 'dart:io';
+
+import 'dart:io';
+
 import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Models/Client.dart' as client;
 import 'package:chajrti/Models/Client.dart';
 import 'package:chajrti/enum/user_role_enum.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../Providers/user_provider.dart';
@@ -19,6 +24,31 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController _name = TextEditingController();
   TextEditingController _email = TextEditingController();
   TextEditingController _phone = TextEditingController();
+
+ // #######################
+  late File _image;
+  
+  get auth => null;
+
+  Future<void> _pickImage() async {
+    final imagePicker = ImagePicker();
+    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
+  Future<void> saveProfileChanges(String userId, String token) async {
+    // ignore: unnecessary_null_comparison
+    if (_image != null) {
+      await auth.uploadImage(userId, _image, token);
+    }
+    // Save other profile changes to the backend
+  }
+
+  // ########################
 
   @override
   Widget build(BuildContext context) {
@@ -113,54 +143,59 @@ class _EditProfileState extends State<EditProfile> {
                                       fontSize: 20)),
                               actions: [
                                 TextButton(
+                                  // ###########
+                                  onPressed: _pickImage,
+                                  // ###########
                                   child: Text("Importer",
                                       style: TextStyle(
                                           color: mainGreen,
                                           fontFamily: defaultFontFamily,
                                           fontSize: 16)),
-                                  onPressed: () {
-                                    // upload image
-                                    // Future<XFile?> image = ImagePicker.pickImage(source: ImageSource.gallery);
-                                    // final Future<Map<String, dynamic>?> editImage =
-                                    //     auth.uploadProfileImaje(auth.user.id, File(image!.path, image.name), auth.token);
-                                    // editImage.then((response) {
-                                    //   if (response["status"]) {
-                                    //     Navigator.push(
-                                    //       context,
-                                    //       MaterialPageRoute(
-                                    //         builder: (context) => EditProfile(),
-                                    //       ),
-                                    //     );
-                                    //   } else {
-                                    //     showDialog(
-                                    //       context: context,
-                                    //       builder: (BuildContext context) {
-                                    //         return AlertDialog(
-                                    //           title: Text("Erreur",
-                                    //               style: TextStyle(
-                                    //                   color: mainGreen,
-                                    //                   fontFamily: defaultFontFamily,
-                                    //                   fontSize: 20)),
-                                    //           content: Text(response["message"]),
-                                    //           actions: [
-                                    //             TextButton(
-                                    //               child: Text("OK",
-                                    //                   style: TextStyle(
-                                    //                       color: mainGreen,
-                                    //                       fontFamily: defaultFontFamily,
-                                    //                       fontSize: 16)),
-                                    //               onPressed: () {
-                                    //                 Navigator.of(context).pop();
-                                    //               },
-                                    //             ),
-                                    //           ],
-                                    //         );
-                                    //       },
-                                    //     );
-                                    //   }
-                                    // });
-                                    Navigator.of(context).pop();
-                                  },
+                                  // onPressed: () {
+                                  //   upload image
+                                  //   final Future<Map<String, dynamic>?> editImage =
+
+                                  //   Future<XFile?> image = ImagePicker.pickImage(source: ImageSource.gallery);
+                                  //   final Future<Map<String, dynamic>?> editImage =
+                                  //       auth.uploadProfileImaje(auth.user.id, File(image!.path, image.name), auth.token);
+                                  //   editImage.then((response) {
+                                  //     if (response["status"]) {
+                                  //       Navigator.push(
+                                  //         context,
+                                  //         MaterialPageRoute(
+                                  //           builder: (context) => EditProfile(),
+                                  //         ),
+                                  //       );
+                                  //     } else {
+                                  //       showDialog(
+                                  //         context: context,
+                                  //         builder: (BuildContext context) {
+                                  //           return AlertDialog(
+                                  //             title: Text("Erreur",
+                                  //                 style: TextStyle(
+                                  //                     color: mainGreen,
+                                  //                     fontFamily: defaultFontFamily,
+                                  //                     fontSize: 20)),
+                                  //             content: Text(response["message"]),
+                                  //             actions: [
+                                  //               TextButton(
+                                  //                 child: Text("OK",
+                                  //                     style: TextStyle(
+                                  //                         color: mainGreen,
+                                  //                         fontFamily: defaultFontFamily,
+                                  //                         fontSize: 16)),
+                                  //                 onPressed: () {
+                                  //                   Navigator.of(context).pop();
+                                  //                 },
+                                  //               ),
+                                  //             ],
+                                  //           );
+                                  //         },
+                                  //       );
+                                  //     }
+                                  //   });
+                                  //   Navigator.of(context).pop();
+                                  // },
                                 ),
                                 TextButton(
                                   child: Text("Annuler",

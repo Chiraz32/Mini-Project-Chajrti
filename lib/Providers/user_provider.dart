@@ -1,5 +1,7 @@
 // import 'dart:html';
 
+import 'dart:io';
+
 import 'package:chajrti/Models/Client.dart';
 import 'package:chajrti/enum/user_role_enum.dart';
 import 'package:chajrti/Constants/api_urls.dart';
@@ -131,24 +133,32 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  // Future<Map<String, dynamic>?> uploadProfileImaje(int id,File image, String? token) async {
-  //   final response = await http.patch(
-  //     Uri.http(ApiUrls.baseURL,'/client/update/${id}'),
-  //     body: image,
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': 'Bearer $token',
-  //     },
-  //   );
-  //   if (response.statusCode == 200) {
-  //     final Map<String, dynamic> responseData = json.decode(response.body);
-  //     Client authUser = Client.fromJson(responseData);
-  //     return {'status': true, 'message': 'successful', 'user': authUser};
-  //   } else {
-  //     return {
-  //       'status': false,
-  //       'message': json.decode(response.body)['message']
-  //     };
-  //   }
-  // }
+  // #############
+  Future<Map<String, dynamic>?> uploadProfileImaje(int id,File image, String? token) async {
+    var request = await http.MultipartRequest(
+      'PATCH',
+      Uri.http(ApiUrls.baseURL,'/client/update/${id}'),
+    );
+    request.headers['Authorization'] = 'Bearer $token';
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'image',
+        image.path,
+        // filename: image.path.split('/').last,
+      ),
+    );
+    var response = await request.send();
+    if (response.statusCode == 200) {
+    //   // final Map<String, dynamic> responseData = json.decode(response);
+    //   Client authUser = Client.fromJson(responseData);
+    //   return {'status': true, 'message': 'successful', 'user': authUser};
+    // } else {
+    //   return {
+    //     'status': false,
+    //     'message': json.decode(response.body)['message']
+    //   };
+    }
+    // ############
+  }
+  
 }
