@@ -56,9 +56,7 @@ class _OrdersList_ClientState extends State<OrdersList_Client> {
                 debugPrint('Remove item');
                 ord.deleteOrder(id,auth.user.token);
               }
-              // setState(() {
-              //   ord.removeFromList( snapshot.data![ind]);
-              // });
+            
             },
                         direction: DismissDirection.startToEnd,
                         confirmDismiss: (DismissDirection direction) async {
@@ -95,7 +93,19 @@ class _OrdersList_ClientState extends State<OrdersList_Client> {
                   }),
                 );
               } else {
-                return const Text("no data");
+                return  Container (
+                  alignment :Alignment.center,
+                  color: lightGreen,
+                  child: const Text(" Vous n'avez pas encore de commandes",
+                  textAlign: TextAlign.center,
+                  textDirection: TextDirection.ltr,
+                  style: TextStyle(
+                  color: Color(0xff00703C),
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+
+
+                ),));
               }
             }),
         bottomNavigationBar: BottomBar(

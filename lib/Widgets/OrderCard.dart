@@ -1,22 +1,30 @@
 import 'package:chajrti/Constants/constants.dart';
+import 'package:chajrti/Providers/order_provider.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
+import 'package:provider/provider.dart';
 
 class OrderCard extends StatelessWidget {
+  late int id;
   late String image;
   late int price;
   late String plant;
   late String ClientId;
+  late String seller;
   OrderCard(
       {super.key,
+      required this.id,
       required this.image,
       required this.price,
       required this.plant,
-      required this.ClientId});
+      required this.ClientId,
+      required this.seller});
 
   @override
   Widget build(BuildContext context) {
+       OrderProvider prov = Provider.of<OrderProvider>(context);
+   
     if (image.isEmpty == true) {
       image = "assets/defaultImage.jpg";
     } else {
@@ -70,13 +78,18 @@ class OrderCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                prov.acceptOrder(id,seller);
+              },
               icon:
                   Icon(Icons.check_circle_outline, color: mainGreen, size: 30)),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
             child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  prov.refuseOrder(id,seller);
+                  
+                },
                 icon: Icon(Icons.remove_circle_outline,
                     color: Colors.red.shade600, size: 30)),
           )

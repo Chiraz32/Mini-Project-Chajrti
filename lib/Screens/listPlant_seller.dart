@@ -1,4 +1,5 @@
 
+import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Widgets/gridTilesPlants.dart';
 import 'package:flutter/material.dart';
@@ -63,12 +64,25 @@ class _PlantList_SellerState extends State<PlantList_Seller> {
                       name: snapshot.data![index].name,
                       image: snapshot.data![index].image,
                       price: snapshot.data![index].price.toString(),
-                      index: index,
+                      plant: snapshot.data![index],
+                      isClient : false,
                     ));
                   }),
                 );
               } else {
-                return Text("no data");
+                  return  Container (
+                  alignment :Alignment.center,
+                  color: lightGreen,
+                  child: const Text(" Vous n'avez pas encore publier des plantes  ",
+                  textAlign: TextAlign.center,
+                  textDirection: TextDirection.ltr,
+                  style: TextStyle(
+                  color: Color(0xff00703C),
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+
+
+                ),));
               }
             }),
         bottomNavigationBar: BottomBar(
@@ -76,44 +90,4 @@ class _PlantList_SellerState extends State<PlantList_Seller> {
         ));
   }
 }
-//  appBar: AppBar(
-//         elevation: 0,
-//         title: const Text("  Vos Produits",
-//             style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500,color: Colors.black)),
-//         actions: <Widget>[
-//           Padding(padding: EdgeInsets.only(right: 20)
-//           ,
-//           child:IconButton(
-//             onPressed: () {
-//               setState(() {
-//                 Navigator.pushNamed(context, '/AddPlant_Seller');
-//               });
-//             },
-//             icon: const Icon(Icons.add_circle_outline, color: Colors.black,size:30),
-//           ) ,)
-          
-//         ],
-//         backgroundColor: Colors.white,
-//       ),
-//       body: GridView.count(
-//         crossAxisCount: 2,
-//         crossAxisSpacing: (plants.length) / 2,
-//         mainAxisSpacing: (plants.length) / 2,
-//         shrinkWrap: true,
-//         children: List<Widget>.generate(plants.length, (index) {
-//       return GridTile(
-//           child: GridTilesPlants(
-           
-//         name: plants[index].name,
-//         image: plants[index].image,
-//         price: plants[index].price.toString(),
-//       ));
-//     }),
-//       ),
-
-//       bottomNavigationBar: BottomBar(
-//         isClient: false,
-//       )
-//       )
-//       ;
-    
+// 

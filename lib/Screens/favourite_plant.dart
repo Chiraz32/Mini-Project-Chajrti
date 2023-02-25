@@ -1,5 +1,8 @@
 import 'package:chajrti/Constants/constants.dart';
+import 'package:chajrti/Models/Plant.dart';
+import 'package:chajrti/Models/favoris.dart';
 import 'package:chajrti/Providers/favoris_provider.dart';
+import 'package:chajrti/Providers/user_provider.dart';
 import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Widgets/gridTilesPlants.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +20,13 @@ class FavouriteList extends StatefulWidget {
 class _FavouriteListState extends State<FavouriteList> {
   @override
   Widget build(BuildContext context) {
-    final favs = context.watch<FavoriteProvider>().myFav;
+    
+    FavoriteProvider prov = Provider.of<FavoriteProvider>(context);
+    UserProvider auth = Provider.of<UserProvider>(context);
+    var favs = prov.myFav;
+    for( Favorite fav in favs) {
+      debugPrint("fav i "+fav.toJson().toString());
+    } 
     return Scaffold(
         appBar: AppBar(
             elevation: 0,
@@ -38,7 +47,12 @@ class _FavouriteListState extends State<FavouriteList> {
             ],
             backgroundColor: Colors.white,
             leading: BackButton(color: darkGrey)),
-        body: GridView.count(
+        body: FutureBuilder <List<Favorite>>(
+            future: prov.getAllFavoris(auth.user.token),
+            builder: (context, snapshot) {
+              if (snapshot.hasData &&
+                  snapshot.connectionState == ConnectionState.done) {
+                return GridView.count(
           crossAxisCount: 2,
           crossAxisSpacing: (favs.length) / 2,
           mainAxisSpacing: (favs.length) / 2,
@@ -48,13 +62,34 @@ class _FavouriteListState extends State<FavouriteList> {
           children: List<Widget>.generate(favs.length, (index) {
             return GridTile(
                 child: GridTilesPlants(
-              name: favs[index].name,
-              image: favs[index].image,
-              price: favs[index].price.toString(),
-              index: index,
-            ));
-          }),
-        ),
+              name: favs[index].plant.name,
+              image: favs[index].plant.image,
+              price: favs[index].plant.price.toString(),
+              plant: favs[index].plant,
+              isClient: true,
+            )
+            );
+          }
+          ),);
+                  }
+                  else {
+               return  Container (
+                  alignment :Alignment.center,
+                  color: lightGreen,
+                  child: const Text("Vous n'avez pas encore de plantes Favoris  ",
+                  textAlign: TextAlign.center,
+                  textDirection: TextDirection.ltr,
+                  style: TextStyle(
+                  color: Color(0xff00703C),
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+
+
+                ),));
+              
+              }
+                  }),
+    
         bottomNavigationBar: BottomBar(
           isClient: true,
         ));

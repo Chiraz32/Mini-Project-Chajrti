@@ -3,6 +3,7 @@ import 'package:chajrti/Providers/order_provider.dart';
 import 'package:chajrti/Providers/user_provider.dart';
 import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Widgets/OrderCard.dart';
+import 'package:chajrti/Widgets/OrderCardSeller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,29 +41,30 @@ class _OrdersList_SellerState extends State<OrdersList_Seller> {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  return OrderCard(
-                    image: snapshot.data![index].plant.image,
-                    price: snapshot.data![index].plant.price,
-                    plant: snapshot.data![index].plant.name,
-                    ClientId: snapshot.data![index].client.name
+                  return OrderCardSeller(
+                    order :snapshot.data![index],
+        
+                    token : auth.user.token
                     );
                 }
                   );
             } else {
-                return Text("no data");
+                 return  Container (
+                  alignment :Alignment.center,
+                  color: lightGreen,
+                  child: const Text(" Vous n'avez pas encore de commandes  ",
+                  textAlign: TextAlign.center,
+                  textDirection: TextDirection.ltr,
+                  style: TextStyle(
+                  color: Color(0xff00703C),
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  )
+                  ,));
               }
              }
                 ),
-        // ListView.builder(
-        //   itemCount: orders.length - 1,
-        //   itemBuilder: ((context, ind) {
-        //     return OrderCard(
-        //         image: orders[ind].plant.image!,
-        //         price: orders[ind].plant.price,
-        //         plant: orders[ind].plant.name,
-        //         ClientId: orders[ind].client.toString());
-        //   }),
-        // ),
+    
         bottomNavigationBar: BottomBar(
           isClient: false,
         ));

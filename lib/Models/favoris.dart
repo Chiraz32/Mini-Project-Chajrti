@@ -20,12 +20,12 @@ class Favorite {
 
   factory Favorite.fromJson(Map<String, dynamic> json) => Favorite(
       id: json["id"],
-      client: json["client"],
-      plant: json["plant"]);
-
+      client : Client.fromJson(json["client"]),
+      plant: Plant.fromJson(json["plant"]),
+  );
   Map<String, dynamic> toJson() => {
         "id": id,
-        "client": client,
-        "plant": plant
+        "client": client.toJson(),
+        "plant": plant.toJson(),
       };
 }

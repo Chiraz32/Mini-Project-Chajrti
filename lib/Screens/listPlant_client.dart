@@ -1,4 +1,5 @@
 
+import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Models/Plant.dart';
 import 'package:chajrti/Providers/favoris_provider.dart';
@@ -35,6 +36,7 @@ class _PlantsList_ClientState extends State<PlantList_Client> {
               child: IconButton(
                 onPressed: () {
                   setState(() {
+                    prov.getAllFavoris(auth.user.token);
                     Navigator.pushNamed(context, '/FavouriteList_Client');
                   });
                 },
@@ -59,19 +61,31 @@ class _PlantsList_ClientState extends State<PlantList_Client> {
                   padding: const EdgeInsets.all(10),
                   children:
                       List<Widget>.generate(snapshot.data!.length, (index) {
-                     
-                    debugPrint(snapshot.data![index].image.toString());
                     return GridTile(
                         child: GridTilesPlants(
                       name: snapshot.data![index].name,
                       image: (snapshot.data![index].image),
                       price: snapshot.data![index].price.toString(),
-                      index: index,
+                      plant:snapshot.data![index],
+                      isClient : true,
                     ));
                   }),
                 );
               } else {
-                return Text("no data");
+               return  Container (
+                  alignment :Alignment.center,
+                  color: lightGreen,
+                  child: const Text("Il n'y a pas encore de plantes publiées  ",
+                  textAlign: TextAlign.center,
+                  textDirection: TextDirection.ltr,
+                  style: TextStyle(
+                  color: Color(0xff00703C),
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+
+
+                ),));
+              
               }
             }),
         bottomNavigationBar: BottomBar(

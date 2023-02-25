@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           '/OrdersList_Seller': (context) => const OrdersList_Seller(),
           '/AddPlant_Seller': (context) => const AddPlant_Seller(),
           '/FavouriteList_Client': (context) => const FavouriteList(),
-          '/PlantDetail_Client': (context) => PlantDetail(index: 2)
+          
         },
         title: 'Chajrti'));
   }

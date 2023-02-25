@@ -124,7 +124,7 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
                         icon:
                             Icon(Icons.add_circle, size: 55, color: mainGreen),
                         onPressed: (() {
-                          provider.AddPlant(
+                          provider.addPlant(
                               context,
                               _name.text.toString(),
                               _description.text.toString(),

@@ -9,6 +9,7 @@ Color lightGreen = const Color(0xffC0DCCF);
 Color lighterGreen = const Color(0xffF2F4F3);
 Color grey = const Color(0xffEFEFEF);
 Color darkGrey = const Color.fromARGB(255, 111, 111, 111);
+Color transparent = Color.fromARGB(0, 255, 255, 255);
 
 
 
