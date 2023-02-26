@@ -96,10 +96,33 @@ class FavoriteProvider with ChangeNotifier {
       'Authorization': 'Bearer $token',
     });
     debugPrint(res.statusCode.toString());
-    // if (res.statusCode == 200) {
-    //     debugPrint("Deleted");
-    // } else {
-    //     throw "Sorry! Unable to delete this post.";
-    // }
+    if (res.statusCode == 200) {
+        debugPrint("Deleted");
+    } else {
+        throw "Sorry! Unable to delete this post.";
+    }
+  }
+  Future<Map<String, dynamic>> updatePlant(
+      int id, Map data, String? token) async {
+    final response = await http.patch(
+      Uri.http(ApiUrls.baseURL, '/plant/update/$id'),
+      body: json.encode(data),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    debugPrint("data elli tpe3thet : " + data.toString());
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      debugPrint("Response data : " + responseData.toString());
+      Plant authUser = Plant.fromJson(responseData);
+      return {'status': true, 'message': 'successful', 'user': authUser};
+    } else {
+      return {
+        'status': false,
+        'message': json.decode(response.body)['message']
+      };
+    }
   }
 }

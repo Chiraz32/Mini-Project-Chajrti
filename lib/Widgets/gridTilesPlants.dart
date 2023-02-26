@@ -55,7 +55,7 @@ class GridTilesPlants extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 150,
+                      height: 120,
                       child: Image.asset(
                         image,
                         height: 120,

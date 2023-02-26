@@ -9,7 +9,6 @@ import '../Providers/user_provider.dart';
 class AddPlant_Seller extends StatefulWidget {
   const AddPlant_Seller({super.key});
 
-
   @override
   State<AddPlant_Seller> createState() => _AddPlant_SellerState();
 }
@@ -31,10 +30,10 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
             padding: EdgeInsets.only(bottom: 10),
             child: ListView(
               children: [
-                // SizedBox(
-                //     height: MediaQuery.of(context).size.height / 2.7,
-                //     width: MediaQuery.of(context).size.width,
-                //     child: Image_Picker()),
+                SizedBox(
+                    height: MediaQuery.of(context).size.height / 2.7,
+                    width: MediaQuery.of(context).size.width,
+                    child: Image_Picker()),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
@@ -131,6 +130,7 @@ class _AddPlant_SellerState extends State<AddPlant_Seller> {
                               int.parse(_price.text).toString(),
                               auth.user.token);
                           debugPrint("clicked");
+                          Navigator.pushNamed(context, '/ProductList_Seller');
                         }))),
                 SizedBox(height: 15)
               ],

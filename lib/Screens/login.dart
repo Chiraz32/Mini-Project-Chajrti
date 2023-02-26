@@ -38,11 +38,17 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  SizedBox(
+                    height: 100,
+                  ),
                   Container(
-                    width: 200,
-                    height: 200,
+                    width: 225,
+                    height: 225,
                     alignment: Alignment.center,
                     child: Image.asset("assets/connexionImage.png"),
+                  ),
+                  SizedBox(
+                    height: 30,
                   ),
                   Text(
                     "Connexion",
@@ -145,34 +151,6 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 15,
                   ),
-                  //add checkbox
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: <Widget>[
-                  //     Row(
-                  //       children: <Widget>[
-                  //         Checkbox(
-                  //           value: isSeller,
-                  //           onChanged: (bool? value) {
-                  //             setState(() {
-                  //               isSeller = value!;
-                  //             });
-                  //           },
-                  //           activeColor: mainGreen,
-                  //         ),
-                  //         Text(
-                  //           "Je suis un Commerçant",
-                  //           style: TextStyle(
-                  //             color: mainGreen,
-                  //             fontSize: 14,
-                  //             fontFamily: 'Poppins-Medium.ttf',
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ],
-                  // ),
-
                   SizedBox(
                     height: 30,
                   ),
@@ -257,6 +235,7 @@ class _LoginPageState extends State<LoginPage> {
                               Provider.of<UserProvider>(context, listen: false)
                                   .setUser(user);
                               if (user.role == UserRoleEnum.seller) {
+                                debugPrint("routed");
                                 setState(() {
                                   Navigator.pushNamed(
                                       context, '/ProductList_Seller');
@@ -273,23 +252,24 @@ class _LoginPageState extends State<LoginPage> {
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: Text("Erreur",
-                                    style: TextStyle(
-                                        color: mainGreen,
-                                        fontFamily: defaultFontFamily,
-                                        fontSize: 20)),
-                                content: Text("the email and password that you entered do not match our records. Please try again"),
-                                actions: [
-                                  TextButton(
-                                    child: Text("OK",
-                                        style: TextStyle(
-                                            color: mainGreen,
-                                            fontFamily: defaultFontFamily,
-                                            fontSize: 16)),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
+                                          style: TextStyle(
+                                              color: mainGreen,
+                                              fontFamily: defaultFontFamily,
+                                              fontSize: 20)),
+                                      content: Text(
+                                          "the email and password that you entered do not match our records. Please try again"),
+                                      actions: [
+                                        TextButton(
+                                          child: Text("OK",
+                                              style: TextStyle(
+                                                  color: mainGreen,
+                                                  fontFamily: defaultFontFamily,
+                                                  fontSize: 16)),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
                                     );
                                   });
                             }
@@ -319,9 +299,6 @@ class _LoginPageState extends State<LoginPage> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
                   ),
                 ],
               ),

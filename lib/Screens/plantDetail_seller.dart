@@ -2,6 +2,7 @@ import 'package:chajrti/Constants/constants.dart';
 import 'package:chajrti/Providers/favoris_provider.dart';
 import 'package:chajrti/Providers/order_provider.dart';
 import 'package:chajrti/Providers/user_provider.dart';
+import 'package:chajrti/Screens/modifPlant.dart';
 import 'package:chajrti/Widgets/BottomBar.dart';
 import 'package:chajrti/Widgets/Button.dart';
 import 'package:chajrti/Widgets/gridTilesPlants.dart';
@@ -32,7 +33,7 @@ class _PlantDetailSellerState extends State<PlantDetailSeller> {
     } else {
       image = "assets/" + plants[widget.index].image;
     }
-    var newImage = image ;
+    var newImage = image;
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
@@ -57,29 +58,46 @@ class _PlantDetailSellerState extends State<PlantDetailSeller> {
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                   )),
-              width: 270,
+              width: 250,
             ),
             Padding(
-              child: IconButton(
-                onPressed: () {
-                  if (!favs.contains(plants[widget.index])) {
-                    context
-                        .read<FavoriteProvider>()
-                        .addToList(plants[widget.index]);
-                  } else {
-                    context
-                       .read<FavoriteProvider>()
-                        .removeFromList(plants[widget.index]);
-                  }
-                },
-                icon: favs.contains(plants[widget.index])
-                    ? const Icon(Icons.favorite,
-                        color: Color(0xff00703C), size: 40)
-                    : const Icon(Icons.favorite_outline,
-                        color: Colors.black, size: 40),
-              ),
-              padding: EdgeInsets.only(right: 15),
-            ),
+                padding: EdgeInsets.only(left: 30),
+                child: IconButton(
+                    style: buttonSmall,
+                    onPressed: () {
+                      setState(() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ModifPlant(
+                                    index: widget.index,
+                                  )),
+                        );
+                      });
+                    },
+                    icon: Icon(
+                      Icons.mode_edit_outline,
+                      color: mainGreen,
+                      size: 35,
+                    ))),
+            Padding(
+                padding: EdgeInsets.only(right: 30),
+                child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        debugPrint("${plants[widget.index].id}");
+                        provider.deletePlant(
+                            plants[widget.index].id, auth.user.token);
+                        Future.delayed((const Duration(milliseconds: 300)), () {
+                        Navigator.pushNamed(context, '/ProductList_Seller');
+                        });
+                      });
+                    },
+                    icon: Icon(
+                      Icons.delete,
+                      color: mainGreen,
+                      size: 35,
+                    )))
           ],
         ),
         Padding(
@@ -142,27 +160,12 @@ class _PlantDetailSellerState extends State<PlantDetailSeller> {
                       ),
                       Text(plants[widget.index].price.toString() + " DT",
                           style: TextStyle(
-                              fontSize: 24,
+                              fontSize: 22,
                               fontWeight: FontWeight.w500,
                               color: Colors.black)),
                     ],
                   )),
             ),
-            Padding(
-                padding: EdgeInsets.only(right: 30),
-                child: ElevatedButton(
-                    style: buttonSupp,
-                    onPressed: () {
-                      setState(() {
-                        provider.deletePlant(plants[widget.index].id,auth.user.token);
-                        Navigator.pushNamed(context, '/ProductList_Seller');
-                      });
-                    },
-                    child: Text(
-                      'supprimer',
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                    )))
           ],
         ),
       ]),

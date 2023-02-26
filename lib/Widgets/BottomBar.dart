@@ -26,7 +26,7 @@ class _BottomBarState extends State<BottomBar> {
         height: 60,
         decoration: BoxDecoration(
           color: mainGreen,
-          borderRadius: const BorderRadius.all(Radius.circular(25)),
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

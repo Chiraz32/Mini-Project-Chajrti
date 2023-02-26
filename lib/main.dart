@@ -6,6 +6,7 @@ import 'package:chajrti/Screens/editProfil.dart';
 import 'package:chajrti/Screens/listPlant_client.dart';
 import 'package:chajrti/Screens/listPlant_seller.dart';
 import 'package:chajrti/Screens/login.dart';
+import 'package:chajrti/Screens/modifPlant.dart';
 import 'package:chajrti/Screens/ordersList_client.dart';
 import 'package:chajrti/Screens/favourite_plant.dart';
 import 'package:chajrti/Screens/ordersList_seller.dart';
